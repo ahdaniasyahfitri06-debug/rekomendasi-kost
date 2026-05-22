@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Kost</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f1f5f9;
+            padding:30px;
+        }
+
+        .search{
+            margin-bottom:30px;
+        }
+
+        input{
+            padding:10px;
+            width:250px;
+        }
+
+        button{
+            padding:10px 20px;
+            background:#2563eb;
+            color:white;
+            border:none;
+        }
+
+        .container{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            padding-bottom:20px;
+        }
+
+        img{
+            width:100%;
+            height:250px;
+            object-fit:cover;
+        }
+
+        .content{
+            padding:20px;
+        }
+
+        a{
+            text-decoration:none;
+            background:#2563eb;
+            color:white;
+            padding:10px 15px;
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h1>Daftar Kost</h1>
+
+    <div class="search">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="fasilitas"
+                placeholder="Cari fasilitas..."
+            >
+
+            <button type="submit">
+                Cari
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="container">
+
+        {% for kost in hasil %}
+
+        <div class="card">
+
+            <img
+                src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}"
+            >
+
+            <div class="content">
+
+                <h2>{{ kost['nama'] }}</h2>
+
+                <p>{{ kost['alamat'] }}</p>
+
+                <p>Rp {{ "{:,}".format(kost['harga']) }}</p>
+
+                <br>
+
+                <a href="/detail/{{ kost['id'] }}">
+                    Detail
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tentang</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#dbeafe;
+            padding:40px;
+        }
+
+        .box{
+            background:white;
+            max-width:800px;
+            margin:auto;
+            padding:40px;
+            border-radius:20px;
+        }
+
+        img{
+            width:200px;
+            border-radius:20px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="box">
+
+        <h1>Tentang Aplikasi</h1>
+
+        <br>
+
+        <img
+            src="{{ url_for('static', filename='images/foto_ahdania.jpeg') }}"
+        >
+
+        <br><br>
+
+        <p>
+            Aplikasi ini menggunakan metode
+            Hybrid Recommendation System.
+        </p>
+
+        <p>
+            Menggabungkan:
+        </p>
+
+        <ul>
+            <li>Content Based Filtering</li>
+            <li>Collaborative Filtering</li>
+        </ul>
+
+        <br>
+
+        <a href="/">
+            Kembali
+        </a>
+
+    </div>
+
+</body>
+</html>

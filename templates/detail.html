@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Detail Kost</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f1f5f9;
+            padding:30px;
+        }
+
+        .box{
+            background:white;
+            max-width:1000px;
+            margin:auto;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        img{
+            width:100%;
+            height:420px;
+            object-fit:cover;
+        }
+
+        .content{
+            padding:30px;
+        }
+
+        h1{
+            color:#1e3a8a;
+        }
+
+        p{
+            margin:10px 0;
+            font-size:17px;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:15px;
+            margin-right:10px;
+            text-decoration:none;
+            background:#2563eb;
+            color:white;
+            padding:12px 20px;
+            border-radius:10px;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#1d4ed8;
+        }
+
+        #lokasi-user{
+            margin-top:20px;
+            padding:15px;
+            background:#dbeafe;
+            border-radius:10px;
+            color:#1e3a8a;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="box">
+
+        <img
+            src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}"
+        >
+
+        <div class="content">
+
+            <h1>{{ kost['nama'] }}</h1>
+
+            <p>
+                <b>Jenis:</b>
+                {{ kost['jenis'] }}
+            </p>
+
+            <p>
+                <b>Alamat:</b>
+                {{ kost['alamat'] }}
+            </p>
+
+            <p>
+                <b>Jarak:</b>
+                {{ kost['jarak'] }} KM
+            </p>
+
+            <p>
+                <b>Kapasitas:</b>
+                {{ kost['kapasitas'] }}
+            </p>
+
+            <p>
+                <b>Fasilitas:</b>
+                {{ kost['fasilitas'] }}
+            </p>
+
+            <p>
+                <b>Harga:</b>
+                Rp {{ "{:,}".format(kost['harga']) }}
+            </p>
+
+            <!-- HASIL LOKASI USER -->
+            <div id="lokasi-user">
+
+                Meminta izin lokasi pengguna...
+
+            </div>
+
+            <!-- TOMBOL GOOGLE MAPS -->
+            <a
+                href="{{ kost['maps'] }}"
+                target="_blank"
+                class="btn"
+            >
+                📍 Lihat Lokasi Kost
+            </a>
+
+            <!-- KEMBALI -->
+            <a href="/cari" class="btn">
+
+                ← Kembali
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // =====================================
+        // MINTA LOKASI USER
+        // =====================================
+
+        if(navigator.geolocation){
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position){
+
+                    const latitude =
+                        position.coords.latitude;
+
+                    const longitude =
+                        position.coords.longitude;
+
+                    document.getElementById(
+                        "lokasi-user"
+                    ).innerHTML =
+
+                    `
+                    📍 Lokasi Anda berhasil dideteksi <br><br>
+
+                    Latitude:
+                    ${latitude}
+                    <br>
+
+                    Longitude:
+                    ${longitude}
+                    `;
+
+                },
+
+                function(){
+
+                    document.getElementById(
+                        "lokasi-user"
+                    ).innerHTML =
+
+                    "❌ Pengguna menolak akses lokasi.";
+
+                }
+
+            );
+
+        }else{
+
+            document.getElementById(
+                "lokasi-user"
+            ).innerHTML =
+
+            "Browser tidak mendukung GPS.";
+
+        }
+
+    </script>
+
+</body>
+</html>
