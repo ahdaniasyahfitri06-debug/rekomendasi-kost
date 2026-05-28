@@ -38,6 +38,8 @@ kost_data = [
         'lat': -6.223900,
         'lng': 106.652000
     },
+    
+    {
 
   'id': 3,
         'nama': 'Kos Zahira',
@@ -115,6 +117,7 @@ kost_data = [
         'gambar': ['kost8.jpg', 'kost8_2.jpg'],
         'maps': 'https://maps.google.com'
     }
+]
 
 # ==========================================
 # ROUTE
