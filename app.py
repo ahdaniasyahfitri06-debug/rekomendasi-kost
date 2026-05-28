@@ -39,7 +39,82 @@ kost_data = [
         'lng': 106.652000
     }
 
-]
+  'id': 3,
+        'nama': 'Kos Zahira',
+        'jenis': 'Putri',
+        'alamat': 'Jln Zaitun 1 No 80 Isvil',
+        'jarak': '0.6',
+        'fasilitas': 'Wifi Listrik Air Kasur Bantal Set Seprei Lemari Dapur Umum Kamar mandi luar Parkir',
+        'harga': 700000,
+        'kapasitas': '2 Orang',
+        'gambar': ['kost3.jpg', 'kost3_2.jpg'],
+        'maps': 'https://maps.app.goo.gl/nqFU6YUqKMj3oP6R9'
+    },
+
+    {
+        'id': 4,
+        'nama': 'Syifa Kos',
+        'jenis': 'Putri',
+        'alamat': 'Jln Qadr 5 No 27',
+        'jarak': '0.7',
+        'fasilitas': 'Kasur Listrik Air Lemari Mesin Cuci Wifi Kamar mandi luar Parkir',
+        'harga': 800000,
+        'kapasitas': '2 Orang',
+        'gambar': ['kost4.jpg', 'kost4_2.jpg'],
+        'maps': 'https://maps.google.com'
+    },
+
+    {
+        'id': 5,
+        'nama': 'Kos Thin Karawaci',
+        'jenis': 'Putra',
+        'alamat': 'Jln Thin 8 No 15',
+        'jarak': '1.35',
+        'fasilitas': 'Kasur Lemari Karpet Meja Belajar Kamar mandi dalam Shower Air Listrik Wifi Parkir',
+        'harga': 800000,
+        'kapasitas': '1 Orang',
+        'gambar': ['kost5.jpg', 'kost5_2.jpg'],
+        'maps': 'https://maps.google.com'
+    },
+
+    {
+        'id': 6,
+        'nama': 'Kos Omah Rizki',
+        'jenis': 'Putra',
+        'alamat': 'Jln Qadr Raya No 33',
+        'jarak': '0.9',
+        'fasilitas': 'Tempat Tidur Lemari AC Kamar mandi luar Air Listrik Dapur Umum Parkir',
+        'harga': 1200000,
+        'kapasitas': '1 Orang',
+        'gambar': ['kost6.jpg', 'kost6_2.jpg'],
+        'maps': 'https://maps.google.com'
+    },
+
+    {
+        'id': 7,
+        'nama': 'Kos Mafaza',
+        'jenis': 'Umum',
+        'alamat': 'Jln Buntu Danau Kelapa Dua',
+        'jarak': '1.9',
+        'fasilitas': 'Kasur Lemari Meja Belajar Wifi Air Listrik Kamar mandi dalam Dapur Umum Kulkas Umum Bantal Parkir',
+        'harga': 1000000,
+        'kapasitas': '2 Orang',
+        'gambar': ['kost7.jpg', 'kost7_2.jpg'],
+        'maps': 'https://maps.google.com'
+    },
+
+    {
+        'id': 8,
+        'nama': 'Kos H Arizal Latif',
+        'jenis': 'Putri',
+        'alamat': 'Jln Zaitun 1 Blok B1 No 18',
+        'jarak': '0.8',
+        'fasilitas': 'Wifi Kasur Listrik Air Lemari Kipas Gorden Kamar mandi dalam Seprei Bantal Dapur Umum Kulkas Umum Tong Sampah Gantungan Baju Alas Kaki',
+        'harga': 800000,
+        'kapasitas': '1 Orang',
+        'gambar': ['kost8.jpg', 'kost8_2.jpg'],
+        'maps': 'https://maps.google.com'
+    }
 
 # ==========================================
 # ROUTE
