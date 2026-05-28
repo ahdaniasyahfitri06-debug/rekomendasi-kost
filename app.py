@@ -18,10 +18,7 @@ kost_data = [
         'harga': 800000,
         'kapasitas': '2 Orang',
         'gambar': ['kost1.jpg', 'kost1_2.jpg'],
-
-        # KOORDINAT KOST
-        'lat': -6.224500,
-        'lng': 106.651200
+        'maps':'https://maps.app.goo.gl/4iT2zhgigMnuWfXGA'
     },
 
     {
@@ -34,9 +31,7 @@ kost_data = [
         'harga': 900000,
         'kapasitas': '2 Orang',
         'gambar': ['kost2.jpg', 'kost2_2.jpg'],
-
-        'lat': -6.223900,
-        'lng': 106.652000
+        'maps':'https://maps.app.goo.gl/tHYViEcvkDC9v3NR6'
     },
     
     {
@@ -63,7 +58,7 @@ kost_data = [
         'harga': 800000,
         'kapasitas': '2 Orang',
         'gambar': ['kost4.jpg', 'kost4_2.jpg'],
-        'maps': 'https://maps.google.com'
+        'maps': 'https://maps.app.goo.gl/fNupGg7cSNEPhv7Q7'
     },
 
     {
@@ -76,7 +71,7 @@ kost_data = [
         'harga': 800000,
         'kapasitas': '1 Orang',
         'gambar': ['kost5.jpg', 'kost5_2.jpg'],
-        'maps': 'https://maps.google.com'
+        'maps': 'https://maps.app.goo.gl/ZfrcP2avif17vg9F9'
     },
 
     {
@@ -89,7 +84,7 @@ kost_data = [
         'harga': 1200000,
         'kapasitas': '1 Orang',
         'gambar': ['kost6.jpg', 'kost6_2.jpg'],
-        'maps': 'https://maps.google.com'
+        'maps': 'https://maps.app.goo.gl/1r1tyEc8s8i6EmS38'
     },
 
     {
@@ -102,7 +97,7 @@ kost_data = [
         'harga': 1000000,
         'kapasitas': '2 Orang',
         'gambar': ['kost7.jpg', 'kost7_2.jpg'],
-        'maps': 'https://maps.google.com'
+        'maps': 'https://maps.app.goo.gl/JeWYQNiUasq1KqBs9'
     },
 
     {
@@ -115,7 +110,7 @@ kost_data = [
         'harga': 800000,
         'kapasitas': '1 Orang',
         'gambar': ['kost8.jpg', 'kost8_2.jpg'],
-        'maps': 'https://maps.google.com'
+        'maps': 'https://maps.app.goo.gl/NR2eMEk533bYkmpU6'
     }
 ]
 
