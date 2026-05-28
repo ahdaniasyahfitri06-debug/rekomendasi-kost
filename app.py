@@ -37,7 +37,7 @@ kost_data = [
 
         'lat': -6.223900,
         'lng': 106.652000
-    }
+    },
 
   'id': 3,
         'nama': 'Kos Zahira',
