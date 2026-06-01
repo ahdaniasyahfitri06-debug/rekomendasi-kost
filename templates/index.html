@@ -1,179 +1,207 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Daftar Kost</title>
 
-    <style>
+<meta charset="UTF-8">
+<title>AI Recommendation Kost</title>
 
-        body{
-            font-family:Arial;
-            background:#f1f5f9;
-            padding:30px;
-        }
+<style>
 
-        .search{
-            margin-bottom:30px;
-        }
+body{
+    font-family:Arial;
+    background:#f1f5f9;
+    padding:30px;
+}
 
-        input{
-            padding:10px;
-            width:250px;
-        }
+.form-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:30px;
+}
 
-        button{
-            padding:10px 20px;
-            background:#2563eb;
-            color:white;
-            border:none;
-        }
+.container{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
 
-        .container{
-            display:grid;
-            grid-template-columns:repeat(2,1fr);
-            gap:20px;
-        }
+.card{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
 
-        .card{
-            background:white;
-            border-radius:20px;
-            overflow:hidden;
-            padding-bottom:20px;
-        }
+img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
 
-        img{
-            width:100%;
-            height:250px;
-            object-fit:cover;
-        }
+.content{
+    padding:20px;
+}
 
-        .content{
-            padding:20px;
-        }
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    cursor:pointer;
+}
 
-        a{
-            text-decoration:none;
-            background:#2563eb;
-            color:white;
-            padding:10px 15px;
-            border-radius:10px;
-        }
+.detail-btn{
+    text-decoration:none;
+    background:#2563eb;
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+}
 
-        /* TAMBAHAN STYLE PENCARIAN BARU */
+.score{
+    color:green;
+    font-weight:bold;
+    font-size:20px;
+}
 
-        .search-container{
-            display:flex;
-            gap:10px;
-            flex-wrap:wrap;
-            margin-bottom:30px;
-        }
+.alasan{
+    background:#ecfdf5;
+    padding:10px;
+    border-radius:10px;
+    margin:10px 0;
+}
 
-        .search-container input{
-            width:180px;
-            border:1px solid #ccc;
-            border-radius:8px;
-        }
-
-        .search-container button{
-            border-radius:8px;
-            cursor:pointer;
-        }
-
-    </style>
+</style>
 
 </head>
 <body>
 
-    <h1>Daftar Kost</h1>
+<h1>🤖 AI Recommendation Kost</h1>
 
-    <!-- SEARCH LAMA -->
-    <div class="search">
+<div class="form-box">
 
-        <form method="GET">
+<form method="GET">
 
-            <input
-                type="text"
-                name="fasilitas"
-                placeholder="Cari fasilitas..."
-            >
+<p><b>Jenis Kost</b></p>
 
-            <button type="submit">
-                Cari
-            </button>
+<input type="radio" name="jenis" value="Putra"> Putra
+<input type="radio" name="jenis" value="Putri"> Putri
+<input type="radio" name="jenis" value="Umum"> Umum
 
-        </form>
+<br><br>
 
-    </div>
+<p><b>Budget Maksimal</b></p>
 
-    <!-- TAMBAHAN SEARCH BARU -->
-    <div class="search-container">
+<input
+type="number"
+name="budget"
+placeholder="Contoh 900000"
+>
 
-        <form method="GET">
+<br><br>
 
-            <input
-                type="text"
-                name="fasilitas"
-                placeholder="Contoh: Wifi, AC"
-            >
+<p><b>Fasilitas Penting</b></p>
 
-            <input
-                type="number"
-                name="harga_min"
-                placeholder="Harga Min"
-            >
+<input type="checkbox" name="fasilitas" value="Wifi"> Wifi
 
-            <input
-                type="number"
-                name="harga_max"
-                placeholder="Harga Max"
-            >
+<input type="checkbox" name="fasilitas" value="AC"> AC
 
-            <input
-                type="number"
-                step="0.1"
-                name="jarak_max"
-                placeholder="Jarak Max (km)"
-            >
+<input type="checkbox" name="fasilitas" value="Parkir"> Parkir
 
-            <button type="submit">
-                Cari
-            </button>
+<input
+type="checkbox"
+name="fasilitas"
+value="Kamar mandi dalam"
+>
+Kamar Mandi Dalam
 
-        </form>
+<br><br>
 
-    </div>
+<p><b>Jumlah Penghuni</b></p>
 
-    <div class="container">
+<input
+type="radio"
+name="kapasitas"
+value="1 Orang"
+>
+1 Orang
 
-        {% for kost in hasil %}
+<input
+type="radio"
+name="kapasitas"
+value="2 Orang"
+>
+2 Orang
 
-        <div class="card">
+<br><br>
 
-            <img
-                src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}"
-            >
+<button type="submit">
+🎯 Dapatkan Rekomendasi
+</button>
 
-            <div class="content">
+</form>
 
-                <h2>{{ kost['nama'] }}</h2>
+</div>
 
-                <p>{{ kost['alamat'] }}</p>
+<div class="container">
 
-                <p>Rp {{ "{:,}".format(kost['harga']) }}</p>
+{% for kost in hasil %}
 
-                <br>
+<div class="card">
 
-                <a href="/detail/{{ kost['id'] }}">
-                    Detail
-                </a>
+<img
+src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}"
+>
 
-            </div>
+<div class="content">
 
-        </div>
+<h2>{{ kost['nama'] }}</h2>
 
-        {% endfor %}
+<p class="score">
 
-    </div>
+🎯 Kecocokan:
+{{ kost['skor'] }}%
+
+</p>
+
+<div class="alasan">
+
+<b>Alasan Rekomendasi:</b>
+
+<ul>
+
+{% for a in kost['alasan'] %}
+
+<li>{{ a }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<p>{{ kost['alamat'] }}</p>
+
+<p>
+Rp {{ "{:,}".format(kost['harga']) }}
+</p>
+
+<a
+href="/detail/{{ kost['id'] }}"
+class="detail-btn"
+>
+Detail
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
 
 </body>
 </html>

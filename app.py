@@ -125,9 +125,71 @@ def welcome():
 
 @app.route('/cari')
 def cari():
+
+    jenis = request.args.get('jenis', '')
+    budget = request.args.get('budget', '')
+    kapasitas = request.args.get('kapasitas', '')
+    fasilitas = request.args.getlist('fasilitas')
+
+    hasil = []
+
+    for kost in kost_data:
+
+        skor = 0
+        alasan = []
+
+        # JENIS KOST
+        if jenis:
+            if jenis.lower() in kost['jenis'].lower():
+                skor += 30
+                alasan.append("Jenis kost sesuai")
+
+        # BUDGET
+        if budget:
+
+            try:
+
+                if kost['harga'] <= int(budget):
+                    skor += 30
+                    alasan.append("Sesuai budget")
+
+            except:
+                pass
+
+        # KAPASITAS
+        if kapasitas:
+
+            if kapasitas == kost['kapasitas']:
+                skor += 20
+                alasan.append("Kapasitas sesuai")
+
+        # FASILITAS
+        for f in fasilitas:
+
+            if f.lower() in kost['fasilitas'].lower():
+
+                skor += 5
+
+                if f not in alasan:
+                    alasan.append(f)
+
+        skor = min(skor, 100)
+
+        kost_copy = kost.copy()
+
+        kost_copy['skor'] = skor
+        kost_copy['alasan'] = alasan
+
+        hasil.append(kost_copy)
+
+    hasil.sort(
+        key=lambda x: x['skor'],
+        reverse=True
+    )
+
     return render_template(
         'index.html',
-        hasil=kost_data
+        hasil=hasil
     )
 
 
