@@ -62,6 +62,49 @@
             border-radius:15px;
         }
 
+        /* SLIDER */
+
+        .slider-container{
+            position:relative;
+        }
+
+        .slide{
+            display:none;
+        }
+
+        .slide.active{
+            display:block;
+        }
+
+        .prev,
+        .next{
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            background:rgba(0,0,0,0.5);
+            color:white;
+            border:none;
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            cursor:pointer;
+            font-size:24px;
+            z-index:100;
+        }
+
+        .prev{
+            left:15px;
+        }
+
+        .next{
+            right:15px;
+        }
+
+        .prev:hover,
+        .next:hover{
+            background:rgba(0,0,0,0.8);
+        }
+
     </style>
 
 </head>
@@ -69,9 +112,19 @@
 
     <div class="box">
 
-        <img
-            src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}"
-        >
+        <div class="slider-container">
+
+            {% for gambar in kost['gambar'] %}
+            <img
+                class="slide {% if loop.first %}active{% endif %}"
+                src="{{ url_for('static', filename='images/' + gambar) }}"
+            >
+            {% endfor %}
+
+            <button class="prev" onclick="changeSlide(-1)">❮</button>
+            <button class="next" onclick="changeSlide(1)">❯</button>
+
+        </div>
 
         <div class="content">
 
@@ -118,9 +171,7 @@
 
             <!-- KEMBALI -->
             <a href="/cari" class="btn">
-
                 ← Kembali
-
             </a>
 
             <!-- EMBED MAPS TANPA IZIN LOKASI -->
@@ -136,6 +187,38 @@
         </div>
 
     </div>
+
+    <script>
+
+        let currentSlide = 0;
+
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index){
+
+            slides.forEach(slide=>{
+                slide.classList.remove('active');
+            });
+
+            slides[index].classList.add('active');
+        }
+
+        function changeSlide(n){
+
+            currentSlide += n;
+
+            if(currentSlide >= slides.length){
+                currentSlide = 0;
+            }
+
+            if(currentSlide < 0){
+                currentSlide = slides.length - 1;
+            }
+
+            showSlide(currentSlide);
+        }
+
+    </script>
 
 </body>
 </html>
