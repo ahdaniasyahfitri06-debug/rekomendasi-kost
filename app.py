@@ -181,36 +181,69 @@ def cari():
     budget = request.args.get('budget', '')
     kapasitas = request.args.get('kapasitas', '')
     fasilitas = request.args.getlist('fasilitas')
+
     preferensi = jenis + " " + " ".join(fasilitas)
 
-content_scores = hitung_content_score(preferensi)
-
-collab_scores = hitung_collaborative_score()
+    content_scores = hitung_content_score(preferensi)
+    collab_scores = hitung_collaborative_score()
 
     hasil = []
 
-   for i, kost in enumerate(kost_data):
+    for i, kost in enumerate(kost_data):
 
-    content_score = content_scores[i] * 100
+        content_score = content_scores[i] * 100
 
-    collaborative_score = (
-        collab_scores[kost['id']] / 5
-    ) * 100
+        collaborative_score = (
+            collab_scores[kost['id']] / 5
+        ) * 100
 
-    skor = (
-        content_score * 0.7
-        +
-        collaborative_score * 0.3
-    )
+        skor = (
+            content_score * 0.7 +
+            collaborative_score * 0.3
+        )
 
         alasan = []
 
-  if content_score > 50:
-    alasan.append("Fasilitas sesuai preferensi")
+        if content_score > 50:
+            alasan.append("Fasilitas sesuai preferensi")
 
-if collaborative_score > 70:
-    alasan.append("Disukai banyak pengguna")
+        if collaborative_score > 70:
+            alasan.append("Disukai banyak pengguna")
 
+        # filter jenis
+        if jenis:
+            if jenis.lower() not in kost['jenis'].lower():
+                continue
+
+        # filter budget
+        if budget:
+            try:
+                if kost['harga'] > int(budget):
+                    continue
+            except:
+                pass
+
+        # filter kapasitas
+        if kapasitas:
+            if kost['kapasitas'] != kapasitas:
+                continue
+
+        kost_copy = kost.copy()
+
+        kost_copy['skor'] = round(skor, 2)
+        kost_copy['alasan'] = alasan
+
+        hasil.append(kost_copy)
+
+    hasil.sort(
+        key=lambda x: x['skor'],
+        reverse=True
+    )
+
+    return render_template(
+        'index.html',
+        hasil=hasil
+    )
 
 # ==========================================
 # MAIN
