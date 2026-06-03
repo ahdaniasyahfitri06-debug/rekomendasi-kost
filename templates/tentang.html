@@ -1,94 +1,170 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Tentang</title>
+<meta charset="UTF-8">
+<title>Tentang Aplikasi</title>
 
-    <style>
+<style>
 
-        body{
-            font-family:Arial;
-            background:#dbeafe;
-            padding:40px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .box{
-            background:white;
-            max-width:800px;
-            margin:auto;
-            padding:40px;
-            border-radius:20px;
-        }
+body{
+    font-family:'Segoe UI',sans-serif;
+    min-height:100vh;
+    padding:50px 20px;
+    background:linear-gradient(
+        135deg,
+        #140f2d,
+        #2b124c,
+        #4a1d66
+    );
+    color:white;
+}
 
-        img{
-            width:200px;
-            border-radius:20px;
-        }
+.box{
+    max-width:900px;
+    margin:auto;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:30px;
+    padding:45px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.35);
+}
 
-    </style>
+h1{
+    text-align:center;
+    font-size:38px;
+    margin-bottom:30px;
+    background:linear-gradient(
+        45deg,
+        #f9a8d4,
+        #f472b6,
+        #ec4899
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.profile{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.profile img{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:50%;
+    border:5px solid rgba(249,168,212,0.8);
+    box-shadow:0 0 25px rgba(236,72,153,0.4);
+}
+
+p{
+    line-height:1.9;
+    margin-bottom:18px;
+    color:#f8fafc;
+    text-align:justify;
+}
+
+.highlight{
+    color:#f9a8d4;
+    font-weight:bold;
+}
+
+ul{
+    margin:15px 0 25px 30px;
+    line-height:2;
+}
+
+li{
+    color:#fbcfe8;
+}
+
+.tech-box{
+    background:rgba(255,255,255,0.08);
+    border-left:4px solid #ec4899;
+    padding:20px;
+    border-radius:15px;
+    margin:25px 0;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-top:25px;
+    text-decoration:none;
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+    color:white;
+    padding:12px 25px;
+    border-radius:15px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(236,72,153,0.4);
+}
+
+</style>
 
 </head>
 <body>
 
-    <div class="box">
+<div class="box">
 
-        <h1>Tentang Aplikasi</h1>
+    <h1>🤖 Tentang Aplikasi</h1>
 
-        <br>
-
+    <div class="profile">
         <img
-            src="{{ url_for('static', filename='images/foto_ahdania.jpeg') }}"
-        >
+        src="{{ url_for('static', filename='images/foto_ahdania.jpeg') }}"
+        alt="Foto Pembuat">
+    </div>
 
-        <br><br>
+    <p>
+        Aplikasi rekomendasi kost ini dibuat untuk membantu mahasiswa dan masyarakat dalam menemukan tempat tinggal yang sesuai dengan kebutuhan, fasilitas, serta anggaran yang dimiliki.
+    </p>
+
+    <p>
+        Berawal dari banyaknya pilihan kost di sekitar lingkungan kampus yang sering membuat pencarian menjadi membingungkan, aplikasi ini hadir sebagai solusi untuk memberikan rekomendasi kost secara lebih cepat, praktis, dan terarah.
+    </p>
+
+    <p>
+        Sistem akan menampilkan rekomendasi berdasarkan kesamaan fasilitas, preferensi pengguna, harga, hingga lokasi kost sehingga pengguna dapat memperoleh pilihan yang lebih relevan.
+    </p>
+
+    <div class="tech-box">
 
         <p>
-            Aplikasi rekomendasi kost ini dibuat untuk membantu mahasiswa dan
-    masyarakat dalam menemukan tempat tinggal yang sesuai dengan kebutuhan,
-    fasilitas, serta anggaran yang dimiliki.
+            Aplikasi ini menggunakan metode
+            <span class="highlight">Hybrid Recommendation System</span>
+            yang menggabungkan beberapa teknik rekomendasi untuk meningkatkan akurasi hasil pencarian.
         </p>
 
-        <p>
-            Berawal dari banyaknya pilihan kost di sekitar lingkungan kampus yang
-    sering membuat pencarian menjadi membingungkan, aplikasi ini hadir sebagai
-    solusi untuk memberikan rekomendasi kost secara lebih cepat, praktis,
-    dan terarah.
-        </p>
-
-       <p>
-    Sistem akan menampilkan rekomendasi berdasarkan kesamaan fasilitas,
-    preferensi pengguna, harga, hingga lokasi kost sehingga pengguna dapat
-    memperoleh pilihan yang lebih relevan.
-</p>
-
-<p>
-    Aplikasi ini menggunakan metode
-    <b>Hybrid Recommendation System</b>
-    yang merupakan gabungan dari beberapa teknik rekomendasi untuk meningkatkan
-    akurasi hasil pencarian.
-</p>
-
-<p>
-    Metode yang digunakan meliputi:
-</p>
-
-<ul>
-    <li>Content Based Filtering</li>
-    <li>Collaborative Filtering</li>
-</ul>
-
-<p>
-    Dengan adanya sistem ini, diharapkan proses pencarian kost menjadi lebih
-    efisien, nyaman, dan membantu pengguna dalam menentukan pilihan tempat
-    tinggal terbaik sesuai kebutuhan mereka.
-</p>
-        <br>
-
-        <a href="/">
-            Kembali
-        </a>
+        <ul>
+            <li>Content Based Filtering</li>
+            <li>Collaborative Filtering</li>
+        </ul>
 
     </div>
+
+    <p>
+        Dengan adanya sistem ini, diharapkan proses pencarian kost menjadi lebih efisien, nyaman, dan membantu pengguna dalam menentukan pilihan tempat tinggal terbaik sesuai kebutuhan mereka.
+    </p>
+
+    <a href="/" class="back-btn">
+        🏠 Kembali ke Beranda
+    </a>
+
+</div>
 
 </body>
 </html>

@@ -8,63 +8,118 @@
     <title>Hybrid Recommendation Kost</title>
 
     <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+body{
 
-        body{
-            font-family:Arial;
-            min-height:100vh;
-            background:#dbeafe;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-        }
+    font-family:'Segoe UI',sans-serif;
 
-        .container{
-            background:white;
-            width:90%;
-            max-width:900px;
-            padding:60px;
-            border-radius:30px;
-            text-align:center;
-            box-shadow:0 10px 30px rgba(160, 88, 6, 0.1);
-        }
+    min-height:100vh;
 
-        h1{
-            font-size:50px;
-            color:#1d4ed8;
-            margin-bottom:20px;
-        }
+    background:
+    linear-gradient(
+        135deg,
+        #140f2d,
+        #2b124c,
+        #4a1d66
+    );
 
-        p{
-            font-size:18px;
-            color:#475569;
-            line-height:1.8;
-        }
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-        .btn-box{
-            margin-top:40px;
-        }
+    padding:20px;
 
-        .btn{
-            text-decoration:none;
-            background:#2563eb;
-            color:white;
-            padding:15px 25px;
-            border-radius:12px;
-            margin:10px;
-            display:inline-block;
-            font-weight:bold;
-        }
+    color:white;
+}
 
-        .btn:hover{
-            background:#1d4ed8;
-        }
+.container{
 
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    width:90%;
+    max-width:900px;
+
+    padding:60px;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.35);
+}
+
+h1{
+
+    font-size:50px;
+
+    margin-bottom:25px;
+
+    background:linear-gradient(
+        45deg,
+        #f9a8d4,
+        #f472b6,
+        #ec4899
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+p{
+
+    font-size:20px;
+
+    color:#f8fafc;
+
+    line-height:1.8;
+}
+
+.btn-box{
+    margin-top:40px;
+}
+
+.btn{
+
+    text-decoration:none;
+
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+
+    color:white;
+
+    padding:15px 28px;
+
+    border-radius:15px;
+
+    margin:10px;
+
+    display:inline-block;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 10px 25px rgba(236,72,153,0.4);
+}
     </style>
 
 </head>

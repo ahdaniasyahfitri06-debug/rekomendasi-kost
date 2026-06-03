@@ -259,6 +259,9 @@ def detail(kost_id):
         'detail.html',
         kost=kost
     )
+    @app.route('/tentang')
+def tentang():
+    return render_template('tentang.html')
 # ==========================================
 # MAIN
 # ==========================================

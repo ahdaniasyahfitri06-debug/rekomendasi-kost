@@ -7,103 +7,216 @@
 
     <style>
 
-        body{
-            font-family:Arial;
-            background:#f1f5f9;
-            padding:30px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .box{
-            background:white;
-            max-width:1000px;
-            margin:auto;
-            border-radius:20px;
-            overflow:hidden;
-            box-shadow:0 5px 20px rgba(0,0,0,0.1);
-        }
+body{
+    font-family:'Segoe UI',sans-serif;
 
-        img{
-            width:100%;
-            height:420px;
-            object-fit:cover;
-        }
+    background:
+    linear-gradient(
+        135deg,
+        #140f2d,
+        #2b124c,
+        #4a1d66
+    );
 
-        .content{
-            padding:30px;
-        }
+    min-height:100vh;
+    padding:40px 20px;
 
-        h1{
-            color:#1e3a8a;
-        }
+    color:white;
+}
 
-        p{
-            margin:10px 0;
-            font-size:17px;
-        }
+.box{
 
-        .btn{
-            display:inline-block;
-            margin-top:15px;
-            margin-right:10px;
-            text-decoration:none;
-            background:#2563eb;
-            color:white;
-            padding:12px 20px;
-            border-radius:10px;
-            font-weight:bold;
-        }
+    max-width:1000px;
+    margin:auto;
 
-        .btn:hover{
-            background:#1d4ed8;
-        }
+    background:rgba(255,255,255,0.08);
 
-        iframe{
-            margin-top:25px;
-            border-radius:15px;
-        }
+    backdrop-filter:blur(18px);
 
-        /* SLIDER */
+    border:1px solid rgba(255,255,255,0.15);
 
-        .slider-container{
-            position:relative;
-        }
+    border-radius:30px;
 
-        .slide{
-            display:none;
-        }
+    overflow:hidden;
 
-        .slide.active{
-            display:block;
-        }
+    box-shadow:
+    0 15px 35px rgba(0,0,0,0.35);
+}
 
-        .prev,
-        .next{
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-            background:rgba(0,0,0,0.5);
-            color:white;
-            border:none;
-            width:50px;
-            height:50px;
-            border-radius:50%;
-            cursor:pointer;
-            font-size:24px;
-            z-index:100;
-        }
+img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+}
 
-        .prev{
-            left:15px;
-        }
+.content{
+    padding:35px;
+}
 
-        .next{
-            right:15px;
-        }
+h1{
 
-        .prev:hover,
-        .next:hover{
-            background:rgba(0,0,0,0.8);
-        }
+    margin-bottom:20px;
+
+    font-size:38px;
+
+    background:linear-gradient(
+        45deg,
+        #f9a8d4,
+        #f472b6,
+        #ec4899
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+p{
+
+    margin:12px 0;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    color:#f8fafc;
+}
+
+b{
+    color:#f9a8d4;
+}
+
+.btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+    margin-right:10px;
+
+    text-decoration:none;
+
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:15px;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 10px 25px rgba(236,72,153,0.4);
+}
+
+iframe{
+
+    margin-top:30px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.slider-container{
+    position:relative;
+}
+
+.slide{
+    display:none;
+}
+
+.slide.active{
+    display:block;
+}
+
+.prev,
+.next{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:55px;
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:24px;
+
+    color:white;
+
+    z-index:100;
+
+    background:rgba(236,72,153,0.55);
+
+    backdrop-filter:blur(10px);
+
+    transition:0.3s;
+}
+
+.prev{
+    left:20px;
+}
+
+.next{
+    right:20px;
+}
+
+.prev:hover,
+.next:hover{
+
+    background:#ec4899;
+
+    transform:
+    translateY(-50%)
+    scale(1.1);
+
+    box-shadow:
+    0 0 20px rgba(236,72,153,0.6);
+}
+
+.lokasi-box{
+
+    margin-top:30px;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    padding:25px;
+
+    border-radius:20px;
+}
+
+.lokasi-box h2{
+
+    color:#f9a8d4;
+
+    margin-bottom:10px;
+}
 
     </style>
 
@@ -160,7 +273,6 @@
                 Rp {{ "{:,}".format(kost['harga']) }}
             </p>
 
-            <!-- TOMBOL GOOGLE MAPS -->
             <a
                 href="{{ kost['maps'] }}"
                 target="_blank"
@@ -169,20 +281,27 @@
                 📍 Lihat Lokasi Kost
             </a>
 
-            <!-- KEMBALI -->
             <a href="/cari" class="btn">
                 ← Kembali
             </a>
 
-            <!-- EMBED MAPS TANPA IZIN LOKASI -->
-            <iframe
-                src="https://maps.google.com/maps?q={{ kost['alamat'] }}&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="350"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy">
-            </iframe>
+            <div class="lokasi-box">
+
+                <h2>📍 Lokasi Kost</h2>
+
+                <p>
+                    Klik tombol di bawah untuk membuka lokasi kost di Google Maps.
+                </p>
+
+                <a
+                    href="{{ kost['maps'] }}"
+                    target="_blank"
+                    class="btn"
+                >
+                    🗺️ Buka Google Maps
+                </a>
+
+            </div>
 
         </div>
 
