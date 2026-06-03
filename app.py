@@ -244,7 +244,21 @@ def cari():
         'index.html',
         hasil=hasil
     )
+@app.route('/detail/<int:kost_id>')
+def detail(kost_id):
 
+    kost = next(
+        (k for k in kost_data if k['id'] == kost_id),
+        None
+    )
+
+    if kost is None:
+        abort(404)
+
+    return render_template(
+        'detail.html',
+        kost=kost
+    )
 # ==========================================
 # MAIN
 # ==========================================
