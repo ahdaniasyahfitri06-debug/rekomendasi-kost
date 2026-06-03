@@ -259,12 +259,20 @@ def detail(kost_id):
         'detail.html',
         kost=kost
     )
-    @app.route('/tentang')
+
+
+@app.route('/tentang')
 def tentang():
     return render_template('tentang.html')
+
+
 # ==========================================
 # MAIN
 # ==========================================
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+# ==========================================
+# MAIN
+# ==========================================
+
