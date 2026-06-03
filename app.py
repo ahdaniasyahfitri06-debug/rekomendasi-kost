@@ -1,5 +1,8 @@
 from flask import Flask, render_template, abort, request
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
 app = Flask(__name__)
 
 # ==========================================
@@ -113,6 +116,54 @@ kost_data = [
         'maps': 'https://maps.app.goo.gl/NR2eMEk533bYkmpU6'
     }
 ]
+ratings = {
+    "user1": {1:5, 2:4, 3:5, 4:4},
+    "user2": {1:4, 2:5, 5:5, 6:3},
+    "user3": {2:5, 3:4, 7:5, 8:4},
+    "user4": {1:5, 4:4, 7:5, 8:5}
+}
+def hitung_content_score(preferensi):
+
+    dokumen = [preferensi]
+
+    for kost in kost_data:
+        dokumen.append(
+            kost['fasilitas'] + " " +
+            kost['jenis']
+        )
+
+    tfidf = TfidfVectorizer()
+
+    matrix = tfidf.fit_transform(dokumen)
+
+    similarity = cosine_similarity(
+        matrix[0:1],
+        matrix[1:]
+    )[0]
+
+    return similarity
+def hitung_collaborative_score():
+
+    skor = {}
+
+    for kost in kost_data:
+
+        total = 0
+        jumlah = 0
+
+        for user in ratings:
+
+            if kost['id'] in ratings[user]:
+
+                total += ratings[user][kost['id']]
+                jumlah += 1
+
+        if jumlah:
+            skor[kost['id']] = total / jumlah
+        else:
+            skor[kost['id']] = 0
+
+    return skor
 
 # ==========================================
 # ROUTE
@@ -130,89 +181,35 @@ def cari():
     budget = request.args.get('budget', '')
     kapasitas = request.args.get('kapasitas', '')
     fasilitas = request.args.getlist('fasilitas')
+    preferensi = jenis + " " + " ".join(fasilitas)
+
+content_scores = hitung_content_score(preferensi)
+
+collab_scores = hitung_collaborative_score()
 
     hasil = []
 
-    for kost in kost_data:
+   for i, kost in enumerate(kost_data):
 
-        skor = 0
+    content_score = content_scores[i] * 100
+
+    collaborative_score = (
+        collab_scores[kost['id']] / 5
+    ) * 100
+
+    skor = (
+        content_score * 0.7
+        +
+        collaborative_score * 0.3
+    )
+
         alasan = []
 
-        # JENIS KOST
-        if jenis:
-            if jenis.lower() in kost['jenis'].lower():
-                skor += 30
-                alasan.append("Jenis kost sesuai")
+  if content_score > 50:
+    alasan.append("Fasilitas sesuai preferensi")
 
-        # BUDGET
-        if budget:
-
-            try:
-
-                if kost['harga'] <= int(budget):
-                    skor += 30
-                    alasan.append("Sesuai budget")
-
-            except:
-                pass
-
-        # KAPASITAS
-        if kapasitas:
-
-            if kapasitas == kost['kapasitas']:
-                skor += 20
-                alasan.append("Kapasitas sesuai")
-
-        # FASILITAS
-        for f in fasilitas:
-
-            if f.lower() in kost['fasilitas'].lower():
-
-                skor += 5
-
-                if f not in alasan:
-                    alasan.append(f)
-
-        skor = min(skor, 100)
-
-        kost_copy = kost.copy()
-
-        kost_copy['skor'] = skor
-        kost_copy['alasan'] = alasan
-
-        hasil.append(kost_copy)
-
-    hasil.sort(
-        key=lambda x: x['skor'],
-        reverse=True
-    )
-
-    return render_template(
-        'index.html',
-        hasil=hasil
-    )
-
-
-@app.route('/tentang')
-def tentang():
-    return render_template('tentang.html')
-
-
-@app.route('/detail/<int:kost_id>')
-def detail(kost_id):
-
-    kost = next(
-        (k for k in kost_data if k['id'] == kost_id),
-        None
-    )
-
-    if not kost:
-        abort(404)
-
-    return render_template(
-        'detail.html',
-        kost=kost
-    )
+if collaborative_score > 70:
+    alasan.append("Disukai banyak pengguna")
 
 
 # ==========================================
