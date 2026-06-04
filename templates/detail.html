@@ -49,10 +49,21 @@ body{
     0 15px 35px rgba(0,0,0,0.35);
 }
 
-img{
+.slider-container{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+}
+
+.slide{
+    display:none;
     width:100%;
     height:420px;
     object-fit:cover;
+}
+
+.slide.active{
+    display:block;
 }
 
 .content{
@@ -68,8 +79,8 @@ h1{
     background:linear-gradient(
         45deg,
         #f9a8d4,
-        #f472b6,
-        #ec4899
+        #852b59,
+        #8d1551
     );
 
     -webkit-background-clip:text;
@@ -85,6 +96,7 @@ p{
     line-height:1.8;
 
    color:#2d2d2d;
+}
 b{
     color:#f9a8d4;
 }
@@ -163,17 +175,39 @@ iframe{
 
     font-size:24px;
 
-    color:#2d2d2d;
+    font-weight:bold;
 
-    z-index:100;
+    color:white;
 
-    background:rgba(236,72,153,0.55);
+    z-index:999;
+
+    background:rgba(133,43,89,0.8);
 
     backdrop-filter:blur(10px);
 
     transition:0.3s;
 }
 
+.prev{
+    left:20px;
+}
+
+.next{
+    right:20px;
+}
+
+.prev:hover,
+.next:hover{
+
+    background:#8d1551;
+
+    transform:
+    translateY(-50%)
+    scale(1.1);
+
+    box-shadow:
+    0 0 20px rgba(141,21,81,0.6);
+}
 .prev{
     left:20px;
 }
@@ -282,24 +316,7 @@ iframe{
                 ← Kembali
             </a>
 
-            <div class="lokasi-box">
-
-                <h2>📍 Lokasi Kost</h2>
-
-                <p>
-                    Klik tombol di bawah untuk membuka lokasi kost di Google Maps.
-                </p>
-
-                <a
-                    href="{{ kost['maps'] }}"
-                    target="_blank"
-                    class="btn"
-                >
-                    🗺️ Buka Google Maps
-                </a>
-
-            </div>
-
+        
         </div>
 
     </div>
