@@ -10,13 +10,91 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-   body{
+/* ===== NAVBAR ===== */
+
+.navbar{
+    position:absolute;
+
+    top:25px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:90%;
+    max-width:1200px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(15px);
+
+    padding:15px 25px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,0.08);
+}
+
+.logo{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:24px;
+    font-weight:700;
+
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.login-btn{
+
+    text-decoration:none;
+
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+
+    color:white;
+
+    padding:10px 20px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 20px rgba(236,72,153,0.4);
+}
+
+body{
 
     font-family:'Poppins',sans-serif;
 
@@ -92,6 +170,8 @@ p{
     color:#6b7280;
 
     line-height:1.8;
+
+    margin-bottom:20px;
 }
 
 .btn{
@@ -108,7 +188,7 @@ p{
         #be185d
     );
 
-    color:#2d2d2d;
+    color:white;
 
     padding:15px 28px;
 
@@ -128,22 +208,37 @@ p{
     box-shadow:
     0 10px 25px rgba(236,72,153,0.4);
 }
+
     </style>
 
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
+    <div class="navbar">
+
+        <div class="logo">
+            KostFinder
+        </div>
+
+        <a href="/login" class="login-btn">
+            👤 Masuk / Daftar
+        </a>
+
+    </div>
+
+    <!-- CONTENT -->
     <div class="container">
 
         <h1>
-            Selamat Datang Di Aplikasi 
+            Selamat Datang Di Aplikasi
             Rekomendasi Kos
         </h1>
 
         <p>
-           Temukan kos terbaik di sekitar
-           Universitas Cendekia Abditama
+            Temukan kos terbaik di sekitar
+            Universitas Cendekia Abditama
         </p>
 
         <div class="btn-box">
