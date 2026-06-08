@@ -3,9 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-<title> Recommendation Kost</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Recommendation Kost</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -21,7 +21,117 @@ body{
     );
 
     padding:30px;
-   color:#2d2d2d;
+    color:#2d2d2d;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(15px);
+
+    padding:15px 25px;
+
+    border-radius:20px;
+
+    margin-bottom:25px;
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,0.08);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.login-link{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+    transition:.3s;
+}
+
+.login-link:hover{
+    color:#ec4899;
+}
+
+.language{
+    position:relative;
+}
+
+.language-btn{
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-weight:600;
+}
+
+.dropdown{
+    display:none;
+
+    position:absolute;
+
+    top:35px;
+    right:0;
+
+    background:white;
+
+    width:150px;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.15);
+
+    z-index:999;
+}
+
+.dropdown a{
+    display:block;
+
+    padding:12px 15px;
+
+    text-decoration:none;
+
+    color:#333;
+}
+
+.dropdown a:hover{
+    background:#f5f5f5;
+}
+
+.language:hover .dropdown{
+    display:block;
+}
+
 h1{
     margin-bottom:25px;
 
@@ -60,7 +170,6 @@ h1{
 }
 
 .card{
-
     background:rgba(255,255,255,0.08);
 
     backdrop-filter:blur(18px);
@@ -78,7 +187,6 @@ h1{
 }
 
 .card:hover{
-
     transform:translateY(-8px);
 
     box-shadow:
@@ -96,14 +204,13 @@ img{
 }
 
 button{
-
     background:linear-gradient(
         45deg,
         #ec4899,
         #be185d
     );
 
-    color:#2d2d2d;
+    color:white;
 
     border:none;
 
@@ -119,7 +226,6 @@ button{
 }
 
 button:hover{
-
     transform:translateY(-3px);
 
     box-shadow:
@@ -127,7 +233,6 @@ button:hover{
 }
 
 .detail-btn{
-
     text-decoration:none;
 
     background:linear-gradient(
@@ -136,7 +241,7 @@ button:hover{
         #be185d
     );
 
-    color:#2d2d2d;
+    color:white;
 
     padding:10px 18px;
 
@@ -150,7 +255,6 @@ button:hover{
 }
 
 .detail-btn:hover{
-
     transform:translateY(-3px);
 
     box-shadow:
@@ -158,7 +262,6 @@ button:hover{
 }
 
 .score{
-
     display:inline-block;
 
     background:linear-gradient(
@@ -167,7 +270,7 @@ button:hover{
         #be185d
     );
 
-    color:#2d2d2d;
+    color:white;
 
     padding:8px 15px;
 
@@ -179,7 +282,6 @@ button:hover{
 }
 
 .alasan{
-
     background:rgba(255,255,255,0.08);
 
     border-left:4px solid #ec4899;
@@ -192,7 +294,6 @@ button:hover{
 }
 
 input[type="number"]{
-
     width:250px;
 
     padding:10px;
@@ -206,138 +307,42 @@ input[type="number"]{
 
 input[type="radio"],
 input[type="checkbox"]{
-
     accent-color:#ec4899;
 }
+
 </style>
 
 </head>
+
 <body>
 
-<h1> Recommendation Kost</h1>
+<div class="navbar">
 
-<div class="form-box">
+    <div class="logo">
+        KostFinder
+    </div>
 
-<form method="GET">
+    <div class="nav-right">
 
-<p><b>Jenis Kost</b></p>
+        <a href="/login" class="login-link">
+            👤 Masuk / Daftar
+        </a>
 
-<input type="radio" name="jenis" value="Putra"> Putra
-<input type="radio" name="jenis" value="Putri"> Putri
-<input type="radio" name="jenis" value="Umum"> Umum
+        <div class="language">
 
-<br><br>
+            <div class="language-btn">
+                🇮🇩 ID ▼
+            </div>
 
-<p><b>Budget Maksimal</b></p>
+            <div class="dropdown">
+                <a href="#">🇮🇩 Indonesia</a>
+                <a href="#">🇺🇸 English</a>
+            </div>
 
-<input
-type="number"
-name="budget"
-placeholder="Contoh 900000"
->
+        </div>
 
-<br><br>
-
-<p><b>Fasilitas Penting</b></p>
-
-<input type="checkbox" name="fasilitas" value="Wifi"> Wifi
-
-<input type="checkbox" name="fasilitas" value="AC"> AC
-
-<input type="checkbox" name="fasilitas" value="Parkir"> Parkir
-
-<input
-type="checkbox"
-name="fasilitas"
-value="Kamar mandi dalam"
->
-Kamar Mandi Dalam
-
-<br><br>
-
-<p><b>Jumlah Penghuni</b></p>
-
-<input
-type="radio"
-name="kapasitas"
-value="1 Orang"
->
-1 Orang
-
-<input
-type="radio"
-name="kapasitas"
-value="2 Orang"
->
-2 Orang
-
-<br><br>
-
-<button type="submit">
- Dapatkan Rekomendasi
-</button>
-
-</form>
+    </div>
 
 </div>
 
-<div class="container">
-
-{% for kost in hasil %}
-
-<div class="card">
-
-<img
-src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}"
->
-
-<div class="content">
-
-<h2>{{ kost['nama'] }}</h2>
-
-<p class="score">
-
- Kecocokan:
-{{ kost['skor'] }}%
-
-</p>
-
-<div class="alasan">
-
-<b>Alasan Rekomendasi:</b>
-
-<ul>
-
-{% for a in kost['alasan'] %}
-
-<li>{{ a }}</li>
-
-{% endfor %}
-
-</ul>
-
-</div>
-
-<p>{{ kost['alamat'] }}</p>
-
-<p>
-Rp {{ "{:,}".format(kost['harga']) }}
-</p>
-
-<a
-href="/detail/{{ kost['id'] }}"
-class="detail-btn"
->
-Detail
-</a>
-
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</body>
-</html>
+<h1>Recommendation Kost</h1>
