@@ -273,11 +273,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if username == 'admin' and password == '123':
-
-            return redirect(url_for('cari'))
-
-        return "Username atau password salah"
+        return redirect(url_for('cari'))
 
     return render_template('login.html')
 
