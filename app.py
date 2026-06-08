@@ -265,6 +265,22 @@ def detail(kost_id):
 def tentang():
     return render_template('tentang.html')
 
+@app.route('/login', methods=['GET','POST'])
+def login():
+
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+
+        if username == 'admin' and password == '123':
+
+            return redirect(url_for('cari'))
+
+        return "Username atau password salah"
+
+    return render_template('login.html')
+
 
 # ==========================================
 # MAIN
