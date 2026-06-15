@@ -134,7 +134,7 @@ kost_data = [
         'alamat': 'Islamic Village, Jl. Islamic Raya Komp.Soponasakti. Blok C5 kav XIV, RT.002/RW.014, Klp. Dua, Kec. Karawaci, Kabupaten Tangerang, Banten 15810',
         'jarak': '1,4',
         'fasilitas': 'Wifi Kasur Listrik Air Lemari Ac Kamar mandi dalam  Bantal Dapur Umum Kulkas Umum   Parkir',
-        'harga': 100000,
+        'harga': 1000000,
         'kapasitas': '1 Orang',
         'gambar': ['kost10.jpg', 'kost10_2.jpg'],
         'maps': 'https://maps.app.goo.gl/Rh7u4DFCsooiM3v48'
@@ -146,7 +146,7 @@ kost_data = [
         'alamat': 'B3 No.1, Village, Jl. Zaitun I Jl. Islamic Raya, Kelapa Dua, Tangerang Regency, Banten 15810',
         'jarak': '0,8',
         'fasilitas': 'AC ruang Tamu Dapur umum Toilet luar Meja Lemari Kasur Parkir Wifi',
-        'harga': 100000,
+        'harga': 1000000,
         'kapasitas': '1 Orang',
         'gambar': ['kost11.jpg', 'kost11_2.jpg'],
         'maps': 'https://maps.app.goo.gl/SA1NQcAck72Wyhar7'
@@ -158,7 +158,7 @@ kost_data = [
         'alamat': 'Jl. Mawaddah Raya No.5, Klp. Dua, Kecamatan Kelapa Dua, Kabupaten Tangerang, Banten 15810',
         'jarak': '1,6',
         'fasilitas': 'AC Meja Kursi Meja Rias Kasur TV Lemari Kamar mandi dalam Dapur umum Parkir Wifi Laundry Kulkas Umum Penjaga Kost Dispenser umum',
-        'harga': 190000,
+        'harga': 1900000,
         'kapasitas': '1 Orang',
         'gambar': ['kost12.jpg', 'kost12_2.jpg'],
         'maps': 'https://maps.app.goo.gl/ACT9VFe4kEof2Sv56'
@@ -253,12 +253,26 @@ def cari():
         alasan = []
 
         if content_score > 50:
-            alasan.append("Fasilitas sesuai preferensi")
+            alasan.append("Fasilitas sesuai dengan preferensi yang dipilih")
 
         if collaborative_score > 70:
-            alasan.append("Disukai banyak pengguna")
+            alasan.append("Memiliki rating tinggi dari pengguna lain")
 
-        # filter jenis
+        if jenis:
+            alasan.append(f"Sesuai dengan jenis kost {kost['jenis']}")
+
+        if budget:
+            alasan.append("Masih dalam rentang budget yang ditentukan")
+
+        if kapasitas:
+            alasan.append(
+                f"Kapasitas kamar {kost['kapasitas']} sesuai kebutuhan"
+            )
+
+        alasan.append(
+            f"Memiliki tingkat kecocokan sebesar {round(skor,2)}% berdasarkan metode Hybrid Recommendation System"
+        )
+               # filter jenis
         if jenis:
             if jenis.lower() not in kost['jenis'].lower():
                 continue
@@ -276,17 +290,20 @@ def cari():
             if kost['kapasitas'] != kapasitas:
                 continue
 
-        kost_copy = kost.copy()
+    kost_copy = kost.copy()
 
-        kost_copy['skor'] = round(skor, 2)
-        kost_copy['alasan'] = alasan
+    kost_copy['skor'] = round(skor, 2)
+    kost_copy['alasan'] = alasan
 
-        hasil.append(kost_copy)
+    hasil.append(kost_copy)
 
     hasil.sort(
         key=lambda x: x['skor'],
         reverse=True
     )
+
+    for i, kost in enumerate(hasil):
+        kost['ranking'] = i + 1
 
     return render_template(
         'index.html',

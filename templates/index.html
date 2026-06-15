@@ -297,8 +297,6 @@ img{
 
 <div class="navbar">
 
-    <div class="logo">
-        Rekomendasi Kost
     </div>
 
     <div class="nav-right">
@@ -379,6 +377,10 @@ Dapatkan Rekomendasi
 <img src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}">
 
 <div class="content">
+
+<p style="font-weight:bold; color:#ec4899; margin-bottom:8px;">
+🏆 Rekomendasi #{{ kost['ranking'] }}
+</p>
 
 <h2>{{ kost['nama'] }}</h2>
 
