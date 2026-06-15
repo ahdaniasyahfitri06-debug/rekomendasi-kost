@@ -114,7 +114,7 @@ kost_data = [
         'kapasitas': '1 Orang',
         'gambar': ['kost8.jpg', 'kost8_2.jpg'],
         'maps': 'https://maps.app.goo.gl/NR2eMEk533bYkmpU6'
-    }
+    },
      {
         'id': 9,
         'nama': 'Kos Kara karawaci',
@@ -126,7 +126,7 @@ kost_data = [
         'kapasitas': '2 Orang',
         'gambar': ['kost9.jpg', 'kost9_2.jpg'],
         'maps': 'https://maps.app.goo.gl/S6DH8aa2Cs1dR7QS6'
-    }
+    },
       {
         'id': 10,
         'nama': 'Kos Sapona Sakti',
@@ -138,7 +138,7 @@ kost_data = [
         'kapasitas': '1 Orang',
         'gambar': ['kost10.jpg', 'kost10_2.jpg'],
         'maps': 'https://maps.app.goo.gl/Rh7u4DFCsooiM3v48'
-    }
+    },
       {
         'id': 11,
         'nama': 'Kos Putri Ibu Dewi',
@@ -150,7 +150,7 @@ kost_data = [
         'kapasitas': '1 Orang',
         'gambar': ['kost11.jpg', 'kost11_2.jpg'],
         'maps': 'https://maps.app.goo.gl/SA1NQcAck72Wyhar7'
-    }
+    },
       {
         'id': 12,
         'nama': 'Kos Griya Mawaddah',
@@ -162,7 +162,7 @@ kost_data = [
         'kapasitas': '1 Orang',
         'gambar': ['kost12.jpg', 'kost12_2.jpg'],
         'maps': 'https://maps.app.goo.gl/ACT9VFe4kEof2Sv56'
-    }
+    },
 ]
 ratings = {
     "user1": {1:5, 2:4, 3:5, 4:4},
