@@ -115,6 +115,54 @@ kost_data = [
         'gambar': ['kost8.jpg', 'kost8_2.jpg'],
         'maps': 'https://maps.app.goo.gl/NR2eMEk533bYkmpU6'
     }
+     {
+        'id': 9,
+        'nama': 'Kos Kara karawaci',
+        'jenis': 'Umum',
+        'alamat': 'Jl. Vila Permata No.1, Bencongan, Kecamatan Kelapa Dua, Kabupaten Tangerang, Banten 15810',
+        'jarak': '2,3',
+        'fasilitas': 'Wifi Kasur Listrik Air Lemari Ac Gorden Kamar mandi dalam Seprei Bantal Dapur Umum Kulkas Umum laundry CCTV Parkir',
+        'harga': 2000000,
+        'kapasitas': '2 Orang',
+        'gambar': ['kost9.jpg', 'kost9_2.jpg'],
+        'maps': 'https://maps.app.goo.gl/S6DH8aa2Cs1dR7QS6'
+    }
+      {
+        'id': 10,
+        'nama': 'Kos Sapona Sakti',
+        'jenis': 'Umum',
+        'alamat': 'Islamic Village, Jl. Islamic Raya Komp.Soponasakti. Blok C5 kav XIV, RT.002/RW.014, Klp. Dua, Kec. Karawaci, Kabupaten Tangerang, Banten 15810',
+        'jarak': '1,4',
+        'fasilitas': 'Wifi Kasur Listrik Air Lemari Ac Kamar mandi dalam  Bantal Dapur Umum Kulkas Umum   Parkir',
+        'harga': 100000,
+        'kapasitas': '1 Orang',
+        'gambar': ['kost10.jpg', 'kost10_2.jpg'],
+        'maps': 'https://maps.app.goo.gl/Rh7u4DFCsooiM3v48'
+    }
+      {
+        'id': 11,
+        'nama': 'Kos Putri Ibu Dewi',
+        'jenis': 'Putri',
+        'alamat': 'B3 No.1, Village, Jl. Zaitun I Jl. Islamic Raya, Kelapa Dua, Tangerang Regency, Banten 15810',
+        'jarak': '0,8',
+        'fasilitas': 'AC ruang Tamu Dapur umum Toilet luar Meja Lemari Kasur Parkir Wifi',
+        'harga': 100000,
+        'kapasitas': '1 Orang',
+        'gambar': ['kost11.jpg', 'kost11_2.jpg'],
+        'maps': 'https://maps.app.goo.gl/SA1NQcAck72Wyhar7'
+    }
+      {
+        'id': 12,
+        'nama': 'Kos Griya Mawaddah',
+        'jenis': 'Umum',
+        'alamat': 'Jl. Mawaddah Raya No.5, Klp. Dua, Kecamatan Kelapa Dua, Kabupaten Tangerang, Banten 15810',
+        'jarak': '1,6',
+        'fasilitas': 'AC Meja Kursi Meja Rias Kasur TV Lemari Kamar mandi dalam Dapur umum Parkir Wifi Laundry Kulkas Umum Penjaga Kost Dispenser umum',
+        'harga': 190000,
+        'kapasitas': '1 Orang',
+        'gambar': ['kost12.jpg', 'kost12_2.jpg'],
+        'maps': 'https://maps.app.goo.gl/ACT9VFe4kEof2Sv56'
+    }
 ]
 ratings = {
     "user1": {1:5, 2:4, 3:5, 4:4},
