@@ -200,8 +200,7 @@ img{
 </form>
 </div>
 
-{% if hasil %}
-<div class="container">
+{% if hasil is not none and hasil|length > 0 %}<div class="container">
 
 {% for kost in hasil %}
 <div class="card">

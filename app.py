@@ -230,6 +230,11 @@ def cari():
     kapasitas = request.args.get('kapasitas', '')
     fasilitas = request.args.getlist('fasilitas')
 
+    # ✅ FIX 1: Kalau belum ada input apapun, tampilkan halaman kosong
+    ada_input = jenis or budget or kapasitas or fasilitas
+    if not ada_input:
+        return render_template('index.html', hasil=None)
+
     preferensi = jenis + " " + " ".join(fasilitas)
 
     content_scores = hitung_content_score(preferensi)
@@ -240,46 +245,62 @@ def cari():
     for i, kost in enumerate(kost_data):
 
         content_score = content_scores[i] * 100
+        collaborative_score = (collab_scores[kost['id']] / 5) * 100
+        skor = (content_score * 0.7 + collaborative_score * 0.3)
 
-        collaborative_score = (
-            collab_scores[kost['id']] / 5
-        ) * 100
-
-        skor = (
-            content_score * 0.7 +
-            collaborative_score * 0.3
-        )
-
+        # ✅ FIX 2: Alasan spesifik berdasarkan data kost & input user
         alasan = []
 
-        if content_score > 50:
-            alasan.append(
-                "Fasilitas sesuai dengan preferensi yang dipilih"
-            )
+        # Fasilitas yang diminta vs yang dimiliki kost
+        if fasilitas:
+            fasilitas_kost = kost['fasilitas'].lower()
+            fasilitas_cocok = [f for f in fasilitas if f.lower() in fasilitas_kost]
+            fasilitas_tidak = [f for f in fasilitas if f.lower() not in fasilitas_kost]
 
-        if collaborative_score > 70:
-            alasan.append(
-                "Memiliki rating tinggi dari pengguna lain"
-            )
+            if fasilitas_cocok:
+                alasan.append(f"✅ Memiliki fasilitas yang kamu cari: {', '.join(fasilitas_cocok)}")
+            if fasilitas_tidak:
+                alasan.append(f"⚠️ Tidak memiliki: {', '.join(fasilitas_tidak)}")
 
+        # Jenis kost
         if jenis:
-            alasan.append(
-                f"Sesuai dengan jenis kost {kost['jenis']}"
-            )
+            if jenis.lower() in kost['jenis'].lower():
+                alasan.append(f"✅ Jenis kost sesuai: {kost['jenis']}")
+            else:
+                alasan.append(f"⚠️ Jenis kost berbeda: kost ini adalah {kost['jenis']}")
 
+        # Budget
         if budget:
-            alasan.append(
-                "Masih dalam rentang budget yang ditentukan"
-            )
+            try:
+                budget_int = int(budget)
+                selisih = budget_int - kost['harga']
+                if selisih >= 0:
+                    alasan.append(f"✅ Harga Rp{kost['harga']:,} masih dalam budget (sisa Rp{selisih:,})")
+                else:
+                    alasan.append(f"⚠️ Harga Rp{kost['harga']:,} melebihi budget sebesar Rp{abs(selisih):,}")
+            except:
+                pass
 
+        # Kapasitas
         if kapasitas:
-            alasan.append(
-                f"Kapasitas kamar {kost['kapasitas']} sesuai kebutuhan"
-            )
+            if kost['kapasitas'] == kapasitas:
+                alasan.append(f"✅ Kapasitas kamar {kost['kapasitas']} sesuai kebutuhan")
+            else:
+                alasan.append(f"⚠️ Kapasitas kamar berbeda: {kost['kapasitas']}")
 
-        alasan.append(
-            f"Memiliki tingkat kecocokan sebesar {round(skor,2)}% berdasarkan metode Hybrid Recommendation System"
-        )
+        # Jarak
+        alasan.append(f"📍 Jarak dari kampus: {kost['jarak']} km")
+
+        # Rating kolaboratif
+        if collaborative_score > 70:
+            alasan.append(f"⭐ Rating tinggi dari pengguna lain ({round(collaborative_score, 1)}%)")
+        elif collaborative_score > 0:
+            alasan.append(f"⭐ Rating pengguna lain: {round(collaborative_score, 1)}%")
+        else:
+            alasan.append("📝 Belum ada rating dari pengguna lain")
+
+        # Skor akhir
+        alasan.append(f"🎯 Tingkat kecocokan: {round(skor, 2)}% (Hybrid Recommendation System)")
 
         # Filter jenis
         if jenis:
@@ -302,21 +323,14 @@ def cari():
         kost_copy = kost.copy()
         kost_copy['skor'] = round(skor, 2)
         kost_copy['alasan'] = alasan
-
         hasil.append(kost_copy)
 
-    hasil.sort(
-        key=lambda x: x['skor'],
-        reverse=True
-    )
+    hasil.sort(key=lambda x: x['skor'], reverse=True)
 
     for i, kost in enumerate(hasil):
         kost['ranking'] = i + 1
 
-    return render_template(
-        'index.html',
-        hasil=hasil
-    )
+    return render_template('index.html', hasil=hasil)
 
 @app.route('/detail/<int:kost_id>') 
 def detail(kost_id):
