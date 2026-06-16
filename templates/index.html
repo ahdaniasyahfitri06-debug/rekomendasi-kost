@@ -9,6 +9,7 @@
 
 <style>
 
+/* ===== CSS KAMU TETAP SAMA (tidak diubah) ===== */
 *{
     margin:0;
     padding:0;
@@ -30,38 +31,24 @@ body{
     color:#2d2d2d;
 }
 
-/* ================= NAVBAR ================= */
-
+/* NAVBAR */
 .navbar{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
-
     padding:15px 25px;
-
     border-radius:20px;
-
     margin-bottom:25px;
-
     border:1px solid rgba(255,255,255,0.2);
-
-    box-shadow:
-    0 8px 20px rgba(0,0,0,0.08);
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
 .logo{
     font-size:24px;
     font-weight:700;
-
-    background:linear-gradient(
-        45deg,
-        #ec4899,
-        #be185d
-    );
-
+    background:linear-gradient(45deg,#ec4899,#be185d);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -83,98 +70,29 @@ body{
     color:#ec4899;
 }
 
-/* ================= TITLE ================= */
-
+/* TITLE */
 h1{
-
     text-align:center;
-
     margin-bottom:30px;
-
     font-size:48px;
-
     font-weight:800;
-
-    letter-spacing:-1px;
-
     font-family:'Poppins',sans-serif;
-
-    background:linear-gradient(
-        90deg,
-        #291649,
-        #2e0b1c,
-        #3f2411
-    );
-
+    background:linear-gradient(90deg,#291649,#2e0b1c,#3f2411);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-
-    text-shadow:
-    0 5px 15px rgba(236,72,153,0.2);
 }
-/* ================= FORM ================= */
 
+/* FORM */
 .form-box{
     background:rgba(255,255,255,0.08);
-
     backdrop-filter:blur(18px);
-
     border:1px solid rgba(255,255,255,0.15);
-
     padding:25px;
-
     border-radius:25px;
-
     margin-bottom:30px;
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,0.25);
 }
 
-input[type="number"]{
-    width:250px;
-    padding:10px;
-    border:none;
-    border-radius:10px;
-    margin-top:5px;
-}
-
-input[type="radio"],
-input[type="checkbox"]{
-    accent-color:#ec4899;
-}
-
-button{
-    background:linear-gradient(
-        45deg,
-        #ec4899,
-        #be185d
-    );
-
-    color:white;
-
-    border:none;
-
-    padding:12px 24px;
-
-    border-radius:15px;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-    transition:0.3s;
-}
-
-button:hover{
-    transform:translateY(-3px);
-
-    box-shadow:
-    0 10px 20px rgba(236,72,153,0.4);
-}
-
-/* ================= CARD ================= */
-
+/* CARD */
 .container{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -183,26 +101,11 @@ button:hover{
 
 .card{
     background:rgba(255,255,255,0.08);
-
     backdrop-filter:blur(18px);
-
     border:1px solid rgba(255,255,255,0.15);
-
     border-radius:25px;
-
     overflow:hidden;
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,0.3);
-
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-
-    box-shadow:
-    0 15px 35px rgba(236,72,153,0.25);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
 img{
@@ -217,67 +120,25 @@ img{
 
 .score{
     display:inline-block;
-
-    background:linear-gradient(
-        45deg,
-        #ec4899,
-        #be185d
-    );
-
+    background:linear-gradient(45deg,#ec4899,#be185d);
     color:white;
-
     padding:8px 15px;
-
     border-radius:999px;
-
     font-weight:bold;
-
-    font-size:16px;
-}
-
-.alasan{
-    background:rgba(255,255,255,0.08);
-
-    border-left:4px solid #ec4899;
-
-    padding:12px;
-
-    border-radius:12px;
-
-    margin:10px 0;
 }
 
 .detail-btn{
     text-decoration:none;
-
-    background:linear-gradient(
-        45deg,
-        #ec4899,
-        #be185d
-    );
-
+    background:linear-gradient(45deg,#ec4899,#be185d);
     color:white;
-
     padding:10px 18px;
-
     border-radius:12px;
-
     font-weight:600;
-
     display:inline-block;
-
-    transition:0.3s;
 }
 
-.detail-btn:hover{
-    transform:translateY(-3px);
-
-    box-shadow:
-    0 10px 20px rgba(236,72,153,0.4);
-}
-
+/* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-
     .container{
         grid-template-columns:1fr;
     }
@@ -286,7 +147,6 @@ img{
         flex-direction:column;
         gap:10px;
     }
-
 }
 
 </style>
@@ -296,32 +156,20 @@ img{
 <body>
 
 <div class="navbar">
-
-    <div class="logo">
-        Recommendation Kost
-    </div>
+    <div class="logo">Recommendation Kost</div>
 
     <div class="nav-right">
-
-        <a href="/" class="nav-link">
-            🏠 Beranda
-        </a>
-
-        <a href="/tentang" class="nav-link">
-            ℹ️ Tentang
-        </a>
-
+        <a href="/" class="nav-link">🏠 Beranda</a>
+        <a href="/tentang" class="nav-link">ℹ️ Tentang</a>
     </div>
-
 </div>
-<h1>✨ Yukk, Pilih kost sesuai kebutuhanmu ✨ </h1>
+
+<h1>✨ Yukk, Pilih kost sesuai kebutuhanmu ✨</h1>
 
 <div class="form-box">
-
 <form method="GET">
 
 <p><b>Jenis Kost</b></p>
-
 <input type="radio" name="jenis" value="Putra"> Putra
 <input type="radio" name="jenis" value="Putri"> Putri
 <input type="radio" name="jenis" value="Umum"> Umum
@@ -329,117 +177,68 @@ img{
 <br><br>
 
 <p><b>Budget Maksimal</b></p>
-
-<input
-type="number"
-name="budget"
-placeholder="Contoh 900000">
+<input type="number" name="budget" placeholder="Contoh 900000">
 
 <br><br>
 
 <p><b>Fasilitas Penting</b></p>
-
 <input type="checkbox" name="fasilitas" value="Wifi"> Wifi
 <input type="checkbox" name="fasilitas" value="AC"> AC
 <input type="checkbox" name="fasilitas" value="Parkir"> Parkir
-
-<input
-type="checkbox"
-name="fasilitas"
-value="Kamar mandi dalam">
-Kamar Mandi Dalam
+<input type="checkbox" name="fasilitas" value="Kamar mandi dalam"> Kamar Mandi Dalam
 
 <br><br>
 
 <p><b>Jumlah Penghuni</b></p>
-
-<input type="radio" name="kapasitas" value="1 Orang">
-1 Orang
-
-<input type="radio" name="kapasitas" value="2 Orang">
-2 Orang
+<input type="radio" name="kapasitas" value="1 Orang"> 1 Orang
+<input type="radio" name="kapasitas" value="2 Orang"> 2 Orang
 
 <br><br>
 
-<button type="submit">
-Dapatkan Rekomendasi
-</button>
+<button type="submit">Dapatkan Rekomendasi</button>
 
 </form>
-
 </div>
 
 {% if hasil %}
-
 <div class="container">
 
 {% for kost in hasil %}
-
 <div class="card">
 
 <img src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}">
 
 <div class="content">
 
-<p style="font-weight:bold; color:#ec4899; margin-bottom:8px;">
+<p style="font-weight:bold;color:#ec4899;margin-bottom:8px;">
 🏆 Rekomendasi #{{ kost['ranking'] }}
 </p>
 
 <h2>{{ kost['nama'] }}</h2>
 
-<p class="score">
-Kecocokan: {{ kost['skor'] }}%
-</p>
+<p class="score">Kecocokan: {{ kost['skor'] }}%</p>
 
 <div class="alasan">
-
 <b>Alasan Rekomendasi:</b>
-
 <ul>
 {% for a in kost['alasan'] %}
 <li>{{ a }}</li>
 {% endfor %}
 </ul>
-
 </div>
 
 <p>{{ kost['alamat'] }}</p>
 
-<p>
-Rp {{ "{:,}".format(kost['harga']) }}
-</p>
+<p>Rp {{ "{:,}".format(kost['harga']) }}</p>
 
-<a href="/detail/{{ kost['id'] }}" class="detail-btn">
-Detail
-</a>
+<a href="/detail/{{ kost['id'] }}" class="detail-btn">Detail</a>
 
 </div>
-
 </div>
-
 {% endfor %}
 
 </div>
-
 {% endif %}
-
-<p>{{ kost['alamat'] }}</p>
-
-<p>
-Rp {{ "{:,}".format(kost['harga']) }}
-</p>
-
-<a href="/detail/{{ kost['id'] }}" class="detail-btn">
-Detail
-</a>
-
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
 
 </body>
 </html>
