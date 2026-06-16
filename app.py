@@ -236,59 +236,59 @@ def cari():
     collab_scores = hitung_collaborative_score()
 
     hasil = []
-
     for i, kost in enumerate(kost_data):
 
-        content_score = content_scores[i] * 100
+    content_score = content_scores[i] * 100
 
-        collaborative_score = (
-            collab_scores[kost['id']] / 5
-        ) * 100
+    collaborative_score = (
+        collab_scores[kost['id']] / 5
+    ) * 100
 
-        skor = (
-            content_score * 0.7 +
-            collaborative_score * 0.3
-        )
+    skor = (
+        content_score * 0.7 +
+        collaborative_score * 0.3
+    )
 
-        alasan = []
+    alasan = []
 
-        if content_score > 50:
-            alasan.append("Fasilitas sesuai dengan preferensi yang dipilih")
+    if content_score > 50:
+        alasan.append("Fasilitas sesuai dengan preferensi yang dipilih")
 
-        if collaborative_score > 70:
-            alasan.append("Memiliki rating tinggi dari pengguna lain")
+    if collaborative_score > 70:
+        alasan.append("Memiliki rating tinggi dari pengguna lain")
 
-        if jenis:
-            alasan.append(f"Sesuai dengan jenis kost {kost['jenis']}")
+    if jenis:
+        alasan.append(f"Sesuai dengan jenis kost {kost['jenis']}")
 
-        if budget:
-            alasan.append("Masih dalam rentang budget yang ditentukan")
+    if budget:
+        alasan.append("Masih dalam rentang budget yang ditentukan")
 
-        if kapasitas:
-            alasan.append(
-                f"Kapasitas kamar {kost['kapasitas']} sesuai kebutuhan"
-            )
-
+    if kapasitas:
         alasan.append(
-            f"Memiliki tingkat kecocokan sebesar {round(skor,2)}% berdasarkan metode Hybrid Recommendation System"
+            f"Kapasitas kamar {kost['kapasitas']} sesuai kebutuhan"
         )
-               # filter jenis
-        if jenis:
-            if jenis.lower() not in kost['jenis'].lower():
-                continue
 
-        # filter budget
-        if budget:
-            try:
-                if kost['harga'] > int(budget):
-                    continue
-            except:
-                pass
+    alasan.append(
+        f"Memiliki tingkat kecocokan sebesar {round(skor,2)}% berdasarkan metode Hybrid Recommendation System"
+    )
 
-        # filter kapasitas
-        if kapasitas:
-            if kost['kapasitas'] != kapasitas:
+    # filter jenis
+    if jenis:
+        if jenis.lower() not in kost['jenis'].lower():
+            continue
+
+    # filter budget
+    if budget:
+        try:
+            if kost['harga'] > int(budget):
                 continue
+        except:
+            pass
+
+    # filter kapasitas
+    if kapasitas:
+        if kost['kapasitas'] != kapasitas:
+            continue
 
     kost_copy = kost.copy()
 
@@ -297,6 +297,7 @@ def cari():
 
     hasil.append(kost_copy)
 
+    # DI LUAR FOR
     hasil.sort(
         key=lambda x: x['skor'],
         reverse=True
@@ -309,8 +310,8 @@ def cari():
         'index.html',
         hasil=hasil
     )
-@app.route('/detail/<int:kost_id>')
-def detail(kost_id):
+    @app.route('/detail/<int:kost_id>')
+    def detail(kost_id):
 
     kost = next(
         (k for k in kost_data if k['id'] == kost_id),
