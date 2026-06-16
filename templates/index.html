@@ -71,6 +71,12 @@ body{
 }
 
 /* TITLE */
+.form-title{
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:15px;
+    color:#5b2167;
+}
 h1{
     text-align:center;
     margin-bottom:30px;
@@ -82,16 +88,26 @@ h1{
     -webkit-text-fill-color:transparent;
 }
 
-/* FORM */
 .form-box{
-    background:rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.12);
     backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,0.15);
-    padding:25px;
+    border:1px solid rgba(255,255,255,0.2);
+    padding:35px;
     border-radius:25px;
+    margin-bottom:40px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.12);
+}
+.form-group{
     margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(0,0,0,0.08);
 }
 
+.form-group:last-child{
+    border-bottom:none;
+}
 /* CARD */
 .container{
     display:grid;
@@ -106,6 +122,13 @@ h1{
     border-radius:25px;
     overflow:hidden;
     box-shadow:0 10px 25px rgba(0,0,0,0.3);
+
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(236,72,153,0.25);
 }
 
 img{
@@ -117,7 +140,11 @@ img{
 .content{
     padding:20px;
 }
-
+.content h2{
+    margin:12px 0;
+    color:#4a215a;
+    font-size:24px;
+}
 .score{
     display:inline-block;
     background:linear-gradient(45deg,#ec4899,#be185d);
@@ -148,7 +175,70 @@ img{
         gap:10px;
     }
 }
+input[type="number"]{
+    width:100%;
+    max-width:350px;
+    padding:14px 18px;
+    border:none;
+    border-radius:14px;
+    font-size:15px;
+    outline:none;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
 
+input[type="radio"],
+input[type="checkbox"]{
+    accent-color:#ec4899;
+    transform:scale(1.15);
+    margin-right:5px;
+    cursor:pointer;
+}
+
+button{
+    width:100%;
+    padding:22px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(
+        45deg,
+        #ec4899,
+        #be185d
+    );
+    color:white;
+    font-size:20px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:15px;
+}
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(236,72,153,.4);
+}
+
+.toggle-alasan{
+    width:auto;
+    padding:10px 15px;
+    margin:15px 0;
+}
+
+.alasan{
+    background:rgba(255,255,255,.2);
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.form-box p{
+    font-size:18px;
+    margin-bottom:10px;
+    color:#4a215a;
+}
+
+.form-box{
+    max-width:900px;
+    margin:0 auto 40px auto;
+}
 </style>
 
 </head>
@@ -156,7 +246,7 @@ img{
 <body>
 
 <div class="navbar">
-    <div class="logo">Recommendation Kost</div>
+    <div class="logo">Welcome</div>
 
     <div class="nav-right">
         <a href="/" class="nav-link">🏠 Beranda</a>
@@ -165,6 +255,15 @@ img{
 </div>
 
 <h1>✨ Yukk, Pilih kost sesuai kebutuhanmu ✨</h1>
+<p style="
+text-align:center;
+margin-bottom:30px;
+font-size:18px;
+color:#5b2167;
+font-weight:500;
+">
+Temukan kost terbaik berdasarkan preferensi dan kebutuhanmu
+</p>
 
 <div class="form-box">
 <form method="GET">
@@ -177,7 +276,11 @@ img{
 <br><br>
 
 <p><b>Budget Maksimal</b></p>
-<input type="number" name="budget" placeholder="Contoh 900000">
+
+<input
+type="number"
+name="budget"
+placeholder="Contoh 900000">
 
 <br><br>
 
@@ -186,6 +289,12 @@ img{
 <input type="checkbox" name="fasilitas" value="AC"> AC
 <input type="checkbox" name="fasilitas" value="Parkir"> Parkir
 <input type="checkbox" name="fasilitas" value="Kamar mandi dalam"> Kamar Mandi Dalam
+<input type="checkbox" name="fasilitas" value="kasur"> Kasur
+<input type="checkbox" name="fasilitas" value="Dapur"> Dapur
+<input type="checkbox" name="fasilitas" value="Lemari"> Lemari
+
+
+
 
 <br><br>
 
@@ -200,8 +309,17 @@ img{
 </form>
 </div>
 
-{% if hasil is not none and hasil|length > 0 %}<div class="container">
+{% if hasil is not none and hasil|length > 0 %}
 
+<h2 style="
+text-align:center;
+margin-bottom:25px;
+color:#5b2167;
+">
+📍 Ditemukan {{ hasil|length }} kost yang sesuai
+</h2>
+
+<div class="container">
 {% for kost in hasil %}
 <div class="card">
 
@@ -215,8 +333,9 @@ img{
 
 <h2>{{ kost['nama'] }}</h2>
 
-<p class="score">Kecocokan: {{ kost['skor'] }}%</p>
-
+<p class="score" style="margin:12px 0;">
+    Kecocokan: {{ kost['skor'] }}%
+</p>
 <button class="toggle-alasan" onclick="toggleAlasan(this)">
     Lihat Alasan Rekomendasi
 </button>
