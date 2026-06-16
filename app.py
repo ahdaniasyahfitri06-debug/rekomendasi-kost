@@ -317,8 +317,6 @@ def cari():
         'index.html',
         hasil=hasil
     )
-    'index.html',
-    hasil=hasil
 
 @app.route('/detail/<int:kost_id>') 
 def detail(kost_id):
@@ -360,7 +358,5 @@ def login():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-# ==========================================
-# MAIN
-# ==========================================
+
 
