@@ -218,14 +218,19 @@ img{
 
 <p class="score">Kecocokan: {{ kost['skor'] }}%</p>
 
-<div class="alasan">
-<b>Alasan Rekomendasi:</b>
-<ul>
-{% for a in kost['alasan'] %}
-<li>{{ a }}</li>
-{% endfor %}
-</ul>
+<button class="toggle-alasan" onclick="toggleAlasan(this)">
+    Lihat Alasan Rekomendasi
+</button>
+
+<div class="alasan" style="display:none;">
+    <b>Alasan Rekomendasi:</b>
+    <ul>
+        {% for a in kost['alasan'] %}
+        <li>{{ a }}</li>
+        {% endfor %}
+    </ul>
 </div>
+
 
 <p>{{ kost['alamat'] }}</p>
 
@@ -236,6 +241,19 @@ img{
 </div>
 </div>
 {% endfor %}
+<script>
+function toggleAlasan(btn){
+    const box = btn.nextElementSibling;
+
+    if(box.style.display === "none"){
+        box.style.display = "block";
+        btn.innerText = "Sembunyikan Alasan";
+    } else {
+        box.style.display = "none";
+        btn.innerText = "Lihat Alasan Rekomendasi";
+    }
+}
+</script>
 
 </div>
 {% endif %}
