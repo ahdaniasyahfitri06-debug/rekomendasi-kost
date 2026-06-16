@@ -369,6 +369,8 @@ Dapatkan Rekomendasi
 
 </div>
 
+{% if hasil %}
+
 <div class="container">
 
 {% for kost in hasil %}
@@ -394,14 +396,32 @@ Kecocokan: {{ kost['skor'] }}%
 <b>Alasan Rekomendasi:</b>
 
 <ul>
-
 {% for a in kost['alasan'] %}
 <li>{{ a }}</li>
 {% endfor %}
-
 </ul>
 
 </div>
+
+<p>{{ kost['alamat'] }}</p>
+
+<p>
+Rp {{ "{:,}".format(kost['harga']) }}
+</p>
+
+<a href="/detail/{{ kost['id'] }}" class="detail-btn">
+Detail
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
 
 <p>{{ kost['alamat'] }}</p>
 
