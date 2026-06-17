@@ -1,34 +1,15 @@
-<h1>🏢 Daftar Semua Kost</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🏢Semua Kost</title>
+</head>
+<body>
 
-<div class="container">
+<h1>Semua Kost</h1>
 
 {% for kost in kost_list %}
-<div class="card">
-
-<img src="{{ url_for('static', filename='images/' + kost['gambar'][0]) }}">
-
-<div class="content">
-
-<h2>{{ kost['nama'] }}</h2>
-
-<p>{{ kost['alamat'] }}</p>
-
-<p>
-Rp {{ "{:,}".format(kost['harga']) }}
-</p>
-
-<p>
-{{ kost['jenis'] }}
-</p>
-
-<a href="/detail/{{ kost['id'] }}"
-class="detail-btn">
-Detail
-</a>
-
-</div>
-
-</div>
+<p>{{ kost['nama'] }}</p>
 {% endfor %}
 
-</div>
+</body>
+</html>
