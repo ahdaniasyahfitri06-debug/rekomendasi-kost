@@ -369,17 +369,6 @@ def semua_kost():
 def tentang():
     return render_template('tentang.html')
 
-@app.route('/login', methods=['GET','POST'])
-def login():
-
-    if request.method == 'POST':
-
-        username = request.form['username']
-        password = request.form['password']
-
-        return redirect(url_for('cari'))
-
-    return render_template('login.html')
 
 
 # ==========================================
