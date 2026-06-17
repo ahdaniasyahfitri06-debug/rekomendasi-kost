@@ -348,7 +348,23 @@ def detail(kost_id):
         kost=kost
     )
 
+@app.route('/semua-kost')
+def semua_kost():
 
+    semua = []
+
+    for i, kost in enumerate(kost_data):
+
+        kost_copy = kost.copy()
+
+        kost_copy['ranking'] = i + 1
+
+        semua.append(kost_copy)
+
+    return render_template(
+        'semua_kost.html',
+        kost_list=semua
+    )
 @app.route('/tentang')
 def tentang():
     return render_template('tentang.html')
