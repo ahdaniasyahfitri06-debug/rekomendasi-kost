@@ -36,6 +36,9 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    position:sticky;
+    top:15px;
+    z-index:999;
     background:rgba(255,255,255,0.15);
     backdrop-filter:blur(15px);
     padding:15px 25px;
@@ -86,6 +89,18 @@ h1{
     background:linear-gradient(90deg,#291649,#2e0b1c,#3f2411);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
+    animation:judul 1s ease;
+}
+
+@keyframes judul{
+    from{
+    opacity:0;
+    transform:translateY(-30px);
+}
+}
+to{
+opacity:1;
+transform:translateY(0);
 }
 
 .form-box{
@@ -124,6 +139,9 @@ h1{
     box-shadow:0 10px 25px rgba(0,0,0,0.3);
 
     transition:.3s;
+
+    opacity:0;
+    animation:fadeUp .7s ease forwards;
 }
 
 .card:hover{
@@ -135,6 +153,12 @@ img{
     width:100%;
     height:250px;
     object-fit:cover;
+    transition:.6s;
+}
+.card:hover img{
+
+transform:scale(1.08);
+
 }
 
 .content{
@@ -162,6 +186,11 @@ img{
     border-radius:12px;
     font-weight:600;
     display:inline-block;
+    transition:.3s;
+}
+.detail-btn:hover{
+    transform:translateY(-3px);
+    letter-spacing:.5px;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -185,6 +214,10 @@ input[type="number"]{
     outline:none;
     box-shadow:0 3px 10px rgba(0,0,0,0.08);
 }
+input[type="number"]:focus{
+    transform:scale(1.02);
+    box-shadow:0 0 0 5px rgba(236,72,153,.15);
+}
 
 input[type="radio"],
 input[type="checkbox"]{
@@ -196,6 +229,8 @@ input[type="checkbox"]{
 
 button{
     width:100%;
+    position:relative;
+    overflow:hidden;
     padding:22px;
     border:none;
     border-radius:18px;
@@ -214,6 +249,20 @@ button{
 button:hover{
     transform:translateY(-3px);
     box-shadow:0 12px 25px rgba(236,72,153,.4);
+}
+button::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:80px;
+    height:100%;
+    background:rgba(255,255,255,.4);
+    transform:skewX(-25deg);
+    transition:.8s;
+}
+button:hover::before{
+left:130%;
 }
 
 .toggle-alasan{
@@ -235,10 +284,94 @@ button:hover{
     color:#4a215a;
 }
 
-.form-box{
-    max-width:900px;
-    margin:0 auto 40px auto;
+body::before{
+    content:"";
+    position:fixed;
+    width:600px;
+    height:600px;
+    background:#ec489950;
+    border-radius:50%;
+    top:-200px;
+    left:-150px;
+    filter:blur(120px);
+    animation:float1 12s ease-in-out infinite;
+    z-index:-1;
 }
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#7c3aed40;
+    border-radius:50%;
+    bottom:-150px;
+    right:-100px;
+    filter:blur(120px);
+    animation:float2 15s ease-in-out infinite;
+    z-index:-1;
+}
+
+@keyframes float1{
+    0%,100%{
+        transform:translate(0,0);
+    }
+    50%{
+        transform:translate(80px,60px);
+    }
+}
+
+@keyframes float2{
+    0%,100%{
+        transform:translate(0,0);
+    }
+    50%{
+        transform:translate(-70px,-50px);
+    }
+}
+
+/* ========================= */
+/* Animasi Card */
+/* ========================= */
+
+.card:nth-child(2){
+    animation-delay:.2s;
+}
+
+.card:nth-child(3){
+    animation-delay:.4s;
+}
+
+.card:nth-child(4){
+    animation-delay:.6s;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+/* Scrollbar */
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(#ec4899,#be185d);
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#eee;
+}
+
+
 </style>
 
 </head>
@@ -287,7 +420,6 @@ font-weight:400;
 type="number"
 name="budget"
 placeholder="Contoh 900000">
-
 <br><br>
 
 <p><b>Fasilitas Penting</b></p>
@@ -356,27 +488,30 @@ color:#5b2167;
 </div>
 
 
-<p>{{ kost['alamat'] }}</p>
+<p>📍 {{ kost['alamat'] }}</p>
 
-<p>Rp {{ "{:,}".format(kost['harga']) }}</p>
+<p>💰 Rp {{ "{:,}".format(kost['harga']) }}</p>
 
 <a href="/detail/{{ kost['id'] }}" class="detail-btn">Detail</a>
 
 </div>
 </div>
 {% endfor %}
-<script>
-function toggleAlasan(btn){
-    const box = btn.nextElementSibling;
 
-    if(box.style.display === "none"){
-        box.style.display = "block";
-        btn.innerText = "Sembunyikan Alasan";
-    } else {
-        box.style.display = "none";
-        btn.innerText = "Lihat Alasan Rekomendasi";
-    }
-}
+<script>
+
+const form=document.querySelector("form");
+
+form.addEventListener("submit",function(){
+
+const btn=form.querySelector("button");
+
+btn.innerHTML="🔍 Mencari Kost...";
+
+btn.disabled=true;
+
+});
+
 </script>
 
 </div>
