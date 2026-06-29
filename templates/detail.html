@@ -31,7 +31,7 @@ body{
 }
 
 .box{
-
+    animation:fadeBox .8s ease;
     max-width:1000px;
     margin:auto;
 
@@ -56,10 +56,14 @@ body{
 }
 
 .slide{
+    transition:.5s;
     display:none;
     width:100%;
     height:420px;
     object-fit:cover;
+}
+.slide:hover{
+    transform:scale(1.05);
 }
 
 .slide.active{
@@ -71,11 +75,9 @@ body{
 }
 
 h1{
-
+    animation:judul .8s ease;
     margin-bottom:20px;
-
     font-size:38px;
-
     background:linear-gradient(
         45deg,
         #f9a8d4,
@@ -102,6 +104,8 @@ b{
 }
 
 .btn{
+    position:relative;
+    overflow:hidden;
 
     display:inline-block;
 
@@ -141,18 +145,6 @@ iframe{
     border-radius:20px;
 
     overflow:hidden;
-}
-
-.slider-container{
-    position:relative;
-}
-
-.slide{
-    display:none;
-}
-
-.slide.active{
-    display:block;
 }
 
 .prev,
@@ -199,26 +191,6 @@ iframe{
 .prev:hover,
 .next:hover{
 
-    background:#8d1551;
-
-    transform:
-    translateY(-50%)
-    scale(1.1);
-
-    box-shadow:
-    0 0 20px rgba(141,21,81,0.6);
-}
-.prev{
-    left:20px;
-}
-
-.next{
-    right:20px;
-}
-
-.prev:hover,
-.next:hover{
-
     background:#ec4899;
 
     transform:
@@ -248,6 +220,100 @@ iframe{
 
     margin-bottom:10px;
 }
+body::before{
+    content:"";
+    position:fixed;
+    width:550px;
+    height:550px;
+    background:#ec489950;
+    border-radius:50%;
+    top:-150px;
+    left:-120px;
+    filter:blur(120px);
+    animation:float1 12s ease-in-out infinite;
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:450px;
+    height:450px;
+    background:#7c3aed40;
+    border-radius:50%;
+    bottom:-120px;
+    right:-100px;
+    filter:blur(120px);
+    animation:float2 15s ease-in-out infinite;
+    z-index:-1;
+}
+
+@keyframes float1{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(70px,60px);}
+}
+
+@keyframes float2{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(-60px,-40px);}
+}
+@keyframes fadeBox{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:70px;
+    height:100%;
+    background:rgba(255,255,255,.35);
+    transform:skewX(-20deg);
+    transition:.8s;
+}
+
+.btn:hover::before{
+    left:130%;
+}
+@keyframes judul{
+    from{
+        opacity:0;
+        transform:translateX(-30px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+.content p{
+    transition:.3s;
+    padding:8px 12px;
+    border-radius:10px;
+}
+
+.content p:hover{
+    background:rgba(255,255,255,.18);
+    transform:translateX(5px);
+}
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(#ec4899,#be185d);
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#eee;
+}
 
     </style>
 
@@ -275,32 +341,33 @@ iframe{
             <h1>{{ kost['nama'] }}</h1>
 
             <p>
-                <b>Jenis:</b>
+                <b>🏠 Jenis:</b>
                 {{ kost['jenis'] }}
             </p>
 
             <p>
-                <b>Alamat:</b>
+               <b>📍 Alamat:</b>
                 {{ kost['alamat'] }}
             </p>
 
             <p>
-                <b>Jarak:</b>
+                <b>📏 Jarak:</b>
                 {{ kost['jarak'] }} KM
             </p>
 
             <p>
-                <b>Kapasitas:</b>
+                <b>👥 Kapasitas:</b>
+
                 {{ kost['kapasitas'] }}
             </p>
 
             <p>
-                <b>Fasilitas:</b>
+               <b>🛏 Fasilitas:</b>
                 {{ kost['fasilitas'] }}
             </p>
 
             <p>
-                <b>Harga:</b>
+               <b>💰 Harga:</b>
                 Rp {{ "{:,}".format(kost['harga']) }}
             </p>
 
@@ -336,20 +403,23 @@ iframe{
             slides[index].classList.add('active');
         }
 
-        function changeSlide(n){
+       function changeSlide(n){
 
-            currentSlide += n;
+    currentSlide += n;
 
-            if(currentSlide >= slides.length){
-                currentSlide = 0;
-            }
+    if(currentSlide >= slides.length){
+        currentSlide = 0;
+    }
 
-            if(currentSlide < 0){
-                currentSlide = slides.length - 1;
-            }
+    if(currentSlide < 0){
+        currentSlide = slides.length - 1;
+    }
 
-            showSlide(currentSlide);
-        }
+    showSlide(currentSlide);
+}
+setInterval(function(){
+    changeSlide(1);
+},4000);
 
     </script>
 
