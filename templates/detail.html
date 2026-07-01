@@ -321,7 +321,95 @@ body::after{
     }
 
 }
+.info-card{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin:25px 0;
+}
 
+.item{
+background:#fff;
+padding:20px;
+border-radius:18px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.item span{
+display:block;
+font-size:15px;
+color:#666;
+margin-bottom:8px;
+}
+
+.item strong{
+font-size:22px;
+color:#be185d;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.card h2{
+margin-bottom:18px;
+color:#7a1f52;
+}
+
+.card p{
+margin:10px 0;
+}
+
+@media(max-width:768px){
+.info-card{
+grid-template-columns:1fr;
+}
+}
+.card .btn{
+margin-top:15px;
+}
+
+.card{
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 25px rgba(236,72,153,.15);
+}
+
+.card h2{
+font-size:24px;
+margin-bottom:18px;
+}
+.fasilitas-list{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:15px;
+}
+
+.fasilitas-item{
+background:#fff5fb;
+border:1px solid #ffd4e8;
+padding:10px 16px;
+border-radius:30px;
+font-size:15px;
+font-weight:600;
+color:#7a1f52;
+box-shadow:0 4px 10px rgba(0,0,0,.06);
+transition:.3s;
+}
+
+.fasilitas-item:hover{
+transform:translateY(-3px);
+background:#ffe6f3;
+}
     </style>
 
 </head>
@@ -343,57 +431,145 @@ body::after{
 
         </div>
 
-        <div class="content">
+     <div class="content">
 
-            <h1>{{ kost['nama'] }}</h1>
+<h1>{{ kost['nama'] }}</h1>
 
-            <p>
-                <b>🏠 Jenis:</b>
-                {{ kost['jenis'] }}
-            </p>
+<div class="info-card">
 
-            <p>
-               <b>📍 Alamat:</b>
-                {{ kost['alamat'] }}
-            </p>
-
-            <p>
-                <b>📏 Jarak:</b>
-                {{ kost['jarak'] }} KM
-            </p>
-
-            <p>
-                <b>👥 Kapasitas:</b>
-
-                {{ kost['kapasitas'] }}
-            </p>
-
-            <p>
-               <b>🛏 Fasilitas:</b>
-                {{ kost['fasilitas'] }}
-            </p>
-
-            <p>
-               <b>💰 Harga:</b>
-                Rp {{ "{:,}".format(kost['harga']) }}
-            </p>
-
-            <a
-                href="{{ kost['maps'] }}"
-                target="_blank"
-                class="btn"
-            >
-                📍 Lihat Lokasi Kost
-            </a>
-
-            <a href="/cari" class="btn">
-                ← Kembali
-            </a>
-
-        
-        </div>
-
+    <div class="item">
+        <span>💰 Harga</span>
+        <strong>Rp {{ "{:,}".format(kost['harga']) }}</strong>
     </div>
+
+    <div class="item">
+        <span>📏 Jarak</span>
+        <strong>{{ kost['jarak'] }} KM</strong>
+    </div>
+
+    <div class="item">
+        <span>👥 Kapasitas</span>
+        <strong>{{ kost['kapasitas'] }}</strong>
+    </div>
+
+</div>
+
+<div class="card">
+
+<h2>🏠 Informasi Kost</h2>
+
+<p><b>Jenis</b> : {{ kost['jenis'] }}</p>
+
+<p><b>Alamat</b> : {{ kost['alamat'] }}</p>
+
+</div>
+
+<div class="card">
+
+<h2>🛏 Fasilitas</h2>
+
+<div class="fasilitas-list">
+
+{% for item in kost['fasilitas'].split(',') %}
+
+<div class="fasilitas-item">
+
+{% if item|trim == "WiFi" %}
+🛜 WiFi
+
+{% elif item|trim == "Wifi" %}
+🛜 Wifi
+
+{% elif item|trim == "AC" %}
+❄️ AC
+
+{% elif item|trim == "Kasur" or item|trim == "kasur" %}
+🛏 Kasur
+
+{% elif item|trim == "Lemari" %}
+🗄️ Lemari
+
+{% elif item|trim == "Kamar mandi dalam" %}
+🚿 Kamar Mandi Dalam
+
+{% elif item|trim == "Kamar mandi luar" %}
+🚿 Kamar Mandi Luar
+
+{% elif item|trim == "Parkir" %}
+🚗 Parkir
+
+{% elif item|trim == "Meja" %}
+🪑 Meja
+
+{% elif item|trim == "Kursi" %}
+💺 Kursi
+
+{% elif item|trim == "Jemuran" %}
+👕 Jemuran
+
+{% elif item|trim == "gajebo" %}
+🏡 Gazebo
+
+{% elif item|trim == "dapur umum" %}
+🍳 Dapur Umum
+
+{% elif item|trim == "TV" %}
+📺 TV
+
+{% elif item|trim == "Laundry" %}
+🧺 Laundry
+
+{% elif item|trim == "Air" %}
+🚰 Air
+
+{% elif item|trim == "Listrik" %}
+💡 Listrik
+
+{% elif item|trim == "Bantal" %}
+🛌 Bantal
+
+{% elif item|trim == "Seprei" %}
+🛏️ Seprei
+
+{% elif item|trim == "Kulkas Umum" %}
+🧊 Kulkas Umum
+
+{% elif item|trim == "Dispenser Umum" %}
+🥤 Dispenser Umum
+
+{% else %}
+✔️ {{ item|trim }}
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+</div>
+
+<div class="card">
+
+<h2>📍 Lokasi Kost</h2>
+
+<p><b>Alamat</b> : {{ kost['alamat'] }}</p>
+
+<a href="{{ kost['maps'] }}" target="_blank" class="btn">
+ Lihat Lokasi di Google Maps
+</a>
+
+</div>
+
+<div style="text-align:center;margin-top:25px;">
+
+<a href="/cari" class="btn">
+← Kembali
+</a>
+
+
+</div>
+
+</div>
 
     <script>
 

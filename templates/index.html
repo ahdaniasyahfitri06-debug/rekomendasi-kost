@@ -592,24 +592,42 @@ color:#5b2167;
 </div>
 {% endfor %}
 
-<script>
-
-const form=document.querySelector("form");
-
-form.addEventListener("submit",function(){
-
-const btn=form.querySelector("button");
-
-btn.innerHTML="🔍 Mencari Kost...";
-
-btn.disabled=true;
-
-});
-
-</script>
-
 </div>
 {% endif %}
+
+<script>
+
+function toggleAlasan(btn){
+
+    const box = btn.nextElementSibling;
+
+    if(box.style.display === "none"){
+        box.style.display = "block";
+        btn.innerHTML = "Sembunyikan Alasan";
+    }else{
+        box.style.display = "none";
+        btn.innerHTML = "Lihat Alasan Rekomendasi";
+    }
+
+}
+
+const form = document.querySelector("form");
+
+if(form){
+
+    form.addEventListener("submit",function(){
+
+        const btn = form.querySelector("button");
+
+        btn.innerHTML = "🔍 Mencari Kost...";
+
+        btn.disabled = true;
+
+    });
+
+}
+
+</script>
 
 </body>
 </html>
