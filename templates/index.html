@@ -17,20 +17,29 @@
 }
 
 body{
+
     font-family:'Inter',sans-serif;
 
+    position:relative;
+
+    overflow-x:hidden;
+
     background:
+    radial-gradient(circle at 15% 20%, rgba(236,72,153,.10) 0 140px, transparent 150px),
+    radial-gradient(circle at 85% 15%, rgba(124,58,237,.10) 0 130px, transparent 140px),
+    radial-gradient(circle at 20% 85%, rgba(59,130,246,.08) 0 120px, transparent 130px),
+    radial-gradient(circle at 80% 80%, rgba(236,72,153,.08) 0 150px, transparent 160px),
     linear-gradient(
         135deg,
-        #dedceb,
-        #d8c7ee,
-        #d5c0e2
+        #f8f4ff,
+        #efe6ff,
+        #f8f1ff
     );
 
     padding:30px;
+
     color:#2d2d2d;
 }
-
 /* NAVBAR */
 .navbar{
     display:flex;
@@ -45,7 +54,7 @@ body{
     border-radius:20px;
     margin-bottom:25px;
     border:1px solid rgba(255,255,255,0.2);
-    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    box-shadow:0 10px 30px rgba(124,58,237,.15);
 }
 
 .logo{
@@ -131,7 +140,8 @@ transform:translateY(0);
 }
 
 .card{
-    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.15);
     backdrop-filter:blur(18px);
     border:1px solid rgba(255,255,255,0.15);
     border-radius:25px;
@@ -145,7 +155,9 @@ transform:translateY(0);
 }
 
 .card:hover{
-    transform:translateY(-8px);
+    transform:
+    translateY(-10px)
+    scale(1.02);
     box-shadow:0 15px 35px rgba(236,72,153,0.25);
 }
 
@@ -370,7 +382,89 @@ body::after{
 ::-webkit-scrollbar-track{
     background:#eee;
 }
+/* ========================= */
+/* Background Decoration */
+/* ========================= */
 
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:550px;
+
+    height:550px;
+
+    top:-180px;
+
+    left:-180px;
+
+    border-radius:50%;
+
+    border:60px solid rgba(236,72,153,.08);
+
+    animation:rotateLeft 30s linear infinite;
+
+    z-index:-1;
+
+}
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:650px;
+
+    height:650px;
+
+    bottom:-250px;
+
+    right:-220px;
+
+    border-radius:50%;
+
+    border:70px solid rgba(124,58,237,.08);
+
+    animation:rotateRight 35s linear infinite;
+
+    z-index:-1;
+
+}
+
+@keyframes rotateLeft{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+@keyframes rotateRight{
+
+    from{
+
+        transform:rotate(360deg);
+
+    }
+
+    to{
+
+        transform:rotate(0deg);
+
+    }
+
+}
 
 </style>
 
@@ -394,7 +488,7 @@ body::after{
 </div>
 </div>
 
-<h1>✨ Yukk, Pilih kost sesuai kebutuhanmu ✨</h1>
+<h1> Yukk, Pilih kost sesuai kebutuhanmu </h1>
 <p style="
 text-align:center;
 margin-bottom:50px;

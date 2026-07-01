@@ -16,13 +16,21 @@ body{
     font-family:'Segoe UI',sans-serif;
     min-height:100vh;
     padding:50px 20px;
-    background:linear-gradient(
+    color:#2d2d2d;
+    position:relative;
+    overflow-x:hidden;
+    background:
+    radial-gradient(circle at 15% 20%, rgba(236,72,153,.10) 0 130px, transparent 150px),
+    radial-gradient(circle at 85% 15%, rgba(124,58,237,.10) 0 120px, transparent 140px),
+    radial-gradient(circle at 20% 80%, rgba(59,130,246,.08) 0 130px, transparent 150px),
+    radial-gradient(circle at 80% 80%, rgba(236,72,153,.08) 0 140px, transparent 160px),
+    linear-gradient(
         135deg,
-        #d3cdf3,
-        #caabf1,
-        #e1bff7
+        #faf8ff,
+        #f2ebff,
+        #faf6ff
     );
-   color:#2d2d2d;
+
 }
 
 .box{
@@ -34,6 +42,12 @@ body{
     border-radius:30px;
     padding:45px;
     box-shadow:0 15px 35px rgba(0,0,0,0.35);
+    transition:.4s;
+}
+.box:hover{
+    transform:translateY(-6px);
+    box-shadow:
+    0 20px 45px rgba(124,58,237,.18);
 }
 
 h1{
@@ -48,8 +62,18 @@ h1{
     );
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
+    animation:judul .8s ease;
 }
-
+@keyframes judul{
+    from{
+        opacity:0;
+        transform:translateY(-25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 .profile{
     text-align:center;
     margin-bottom:30px;
@@ -60,15 +84,25 @@ h1{
     height:220px;
     object-fit:cover;
     border-radius:50%;
-    border:5px solid rgba(249,168,212,0.8);
-    box-shadow:0 0 25px rgba(236,72,153,0.4);
-}
+    border:5px solid rgba(249,168,212,.8);
+    box-shadow:0 0 25px rgba(236,72,153,.35);
+    transition:.4s;
 
+}
+.profile img:hover{
+    transform:scale(1.05) rotate(3deg);
+    box-shadow:
+    0 0 40px rgba(236,72,153,.45);
+}
 p{
+    transition:.3s;
     line-height:1.9;
     margin-bottom:18px;
    color:#2d2d2d;
     text-align:justify;
+}
+p:hover{
+    transform:translateX(5px);
 }
 
 .highlight{
@@ -113,7 +147,66 @@ li{
     transform:translateY(-4px);
     box-shadow:0 10px 25px rgba(236,72,153,0.4);
 }
+/* ========================= */
+/* Background Decoration */
+/* ========================= */
 
+body::before{
+    content:"";
+    position:fixed;
+    width:600px;
+    height:600px;
+    top:-220px;
+    left:-220px;
+    border-radius:50%;
+    border:70px solid rgba(236,72,153,.08);
+    animation:rotateLeft 28s linear infinite;
+    z-index:-1;
+
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:700px;
+    height:700px;
+    bottom:-260px;
+    right:-240px;
+    border-radius:50%;
+    border:80px solid rgba(124,58,237,.08);
+    animation:rotateRight 35s linear infinite;
+    z-index:-1;
+}
+
+@keyframes rotateLeft{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+@keyframes rotateRight{
+    from{
+        transform:rotate(360deg);
+    }
+    to{
+        transform:rotate(0deg);
+    }
+}
+::-webkit-scrollbar{
+    width:10px;
+}
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(#ec4899,#be185d);
+    border-radius:20px;
+}
+::-webkit-scrollbar-track{
+    background:#eee;
+
+}
 </style>
 
 </head>
