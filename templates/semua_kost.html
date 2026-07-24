@@ -24,18 +24,50 @@ body{
 
     overflow-x:hidden;
 
-    background:
-    radial-gradient(circle at 15% 20%, rgba(236,72,153,.10) 0 130px, transparent 150px),
-    radial-gradient(circle at 85% 15%, rgba(124,58,237,.10) 0 120px, transparent 140px),
-    radial-gradient(circle at 20% 80%, rgba(59,130,246,.08) 0 130px, transparent 150px),
-    radial-gradient(circle at 80% 80%, rgba(236,72,153,.08) 0 140px, transparent 160px),
-    linear-gradient(
-        135deg,
-        #faf8ff,
-        #f2ebff,
-        #faf6ff
-    );
+    background:#FDF2F8;
 
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:15px;
+    z-index:999;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(15px);
+    padding:15px 25px;
+    border-radius:20px;
+    margin-bottom:25px;
+    border:1px solid rgba(255,255,255,0.6);
+    box-shadow:0 10px 30px rgba(124,58,237,.12);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+    background:linear-gradient(45deg,#ec4899,#be185d);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.nav-link{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#ec4899;
 }
 
 /* Background */
@@ -147,17 +179,17 @@ h1{
 
 .card{
 
-    background:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.55);
 
     backdrop-filter:blur(18px);
 
-    border:1px solid rgba(255,255,255,.35);
+    border:1px solid rgba(255,255,255,.6);
 
     border-radius:25px;
 
     overflow:hidden;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
 
     transition:.4s;
 
@@ -359,10 +391,33 @@ h1{
 ::-webkit-scrollbar-track{
     background:#eee;
 }
+
+@media(max-width:768px){
+    .navbar{
+        flex-direction:column;
+        gap:10px;
+    }
+}
 </style>
 </head>
 
 <body>
+
+<div class="navbar">
+    <div class="logo"></div>
+
+   <div class="nav-right">
+    <a href="/" class="nav-link">🏠 Beranda</a>
+
+    <a href="/semua-kost" class="nav-link">
+        🏢 Semua Kost
+    </a>
+
+    <a href="/tentang" class="nav-link">
+        ℹ️ Tentang
+    </a>
+</div>
+</div>
 
 <a href="/cari" class="back-btn">← Kembali ke Pencarian</a>
 
