@@ -418,21 +418,16 @@ def cari():
 
         alasan.append(f"📍 Jarak dari kampus: {kost['jarak']} km")
 
-        # Rating kolaboratif -- sekarang berbasis data ASLI, bukan karangan
-        if n_rating == 0:
-            alasan.append("📝 Belum ada rating dari penghuni")
-        elif collaborative_score > 70:
+        # Rating kolaboratif -- info status rating sudah ditampilkan lewat badge terpisah
+        # di frontend, jadi di sini cukup tampilkan kalau memang tinggi (nilai tambah nyata)
+        if n_rating > 0 and collaborative_score > 70:
             alasan.append(f"⭐ Rating tinggi dari {n_rating} penghuni ({round(collaborative_score, 1)}%)")
-        else:
-            alasan.append(f"⭐ Rating dari {n_rating} penghuni: {round(collaborative_score, 1)}%")
 
-        if preferensi_kosong:
-            label_metode = "Diurutkan berdasarkan rating & jarak"
-        elif n_rating > 0:
-            label_metode = "Hybrid Recommendation System"
-        else:
-            label_metode = "Content-Based Filtering (TF-IDF)"
-        alasan.append(f"🎯 Tingkat kecocokan: {round(skor, 2)}% ({label_metode})")
+        # Skor akhir -- ditampilkan polos tanpa jargon metode (TF-IDF, dsb),
+        # karena label itu untuk keperluan laporan/dokumentasi, bukan untuk end-user.
+        # Metode yang dipakai: Content-Based Filtering (TF-IDF + Cosine Similarity),
+        # digabung dengan Collaborative Filtering berbasis rating asli penghuni kalau tersedia.
+        alasan.append(f"🎯 Tingkat kecocokan: {round(skor, 2)}%")
 
         if jenis:
             if jenis.lower() not in kost['jenis'].lower():
