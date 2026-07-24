@@ -3,6 +3,9 @@ from flask import Flask, render_template, abort, request, redirect, url_for
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+import json
+import os
+
 app = Flask(__name__)
 
 # ==========================================
@@ -38,7 +41,7 @@ kost_data = [
         'gambar': ['kost2.jpg', 'kost2_2.jpg'],
         'maps':'https://maps.app.goo.gl/tHYViEcvkDC9v3NR6'
     },
-    
+
     {
 
   'id': 3,
@@ -195,7 +198,7 @@ kost_data = [
         'alamat': 'Jl. Murai Raya No.14, RT.003/RW.013, Panunggangan Bar., Kec. Cibodas, Kota Tangerang, Banten 15139',
         'deskripsi': 'Kost putra dengan fasilitas lengkap serta tersedia penjaga kost untuk meningkatkan keamanan',
         'jarak': '1',
-        'fasilitas': 'AC, kasur, Lemari, Kamar mandi dalam, Parkir, Meja, Cermin, Kursi, Wastafel, Jemuran, WiFi, Penjaga Kost', 
+        'fasilitas': 'AC, kasur, Lemari, Kamar mandi dalam, Parkir, Meja, Cermin, Kursi, Wastafel, Jemuran, WiFi, Penjaga Kost',
         'harga': 1150000,
         'kapasitas': '1 Orang',
         'gambar': ['kost14.jpg', 'kost14_2.jpg'],
@@ -253,14 +256,36 @@ kost_data = [
         'gambar': ['kost18.jpg', 'kost18_2.jpg'],
         'maps': 'https://maps.app.goo.gl/Z8YTjNKQ4ua1RVRf9'
     },
-     
+
 ]
-ratings = {
-    "user1": {1:5, 2:4, 3:5, 4:4},
-    "user2": {1:4, 2:5, 5:5, 6:3},
-    "user3": {2:5, 3:4, 7:5, 8:4},
-    "user4": {1:5, 4:4, 7:5, 8:5}
-}
+
+# ==========================================
+# RATING ASLI (disimpan di file JSON, BUKAN data karangan)
+# Format: { "1": [5, 4, 5], "2": [4] , ... }  -> id_kost: daftar rating dari penghuni asli
+# ==========================================
+
+RATING_FILE = 'ratings.json'
+
+
+def load_ratings():
+    if os.path.exists(RATING_FILE):
+        with open(RATING_FILE, 'r') as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return {}
+    return {}
+
+
+def simpan_rating(kost_id, rating):
+    data = load_ratings()
+    key = str(kost_id)
+    data.setdefault(key, [])
+    data[key].append(rating)
+    with open(RATING_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+
 def hitung_content_score(preferensi):
 
     dokumen = [preferensi]
@@ -281,28 +306,31 @@ def hitung_content_score(preferensi):
     )[0]
 
     return similarity
-def hitung_collaborative_score():
 
+
+def hitung_collaborative_score():
+    """
+    Menghitung skor rata-rata rating ASLI per kost dari ratings.json.
+    Kalau kost belum punya rating sama sekali, skornya 0 (dan akan
+    ditandai 'Belum ada rating' di alasan rekomendasi).
+    """
+    data_rating = load_ratings()
     skor = {}
 
     for kost in kost_data:
-
-        total = 0
-        jumlah = 0
-
-        for user in ratings:
-
-            if kost['id'] in ratings[user]:
-
-                total += ratings[user][kost['id']]
-                jumlah += 1
-
-        if jumlah:
-            skor[kost['id']] = total / jumlah
+        daftar_rating = data_rating.get(str(kost['id']), [])
+        if daftar_rating:
+            skor[kost['id']] = sum(daftar_rating) / len(daftar_rating)
         else:
             skor[kost['id']] = 0
 
     return skor
+
+
+def jumlah_rating(kost_id):
+    data_rating = load_ratings()
+    return len(data_rating.get(str(kost_id), []))
+
 
 # ==========================================
 # ROUTE
@@ -321,14 +349,18 @@ def cari():
     kapasitas = request.args.get('kapasitas', '')
     fasilitas = request.args.getlist('fasilitas')
 
-    # ✅ FIX 1: Kalau belum ada input apapun, tampilkan halaman kosong
     ada_input = jenis or budget or kapasitas or fasilitas
     if not ada_input:
         return render_template('index.html', hasil=None)
 
-    preferensi = jenis + " " + " ".join(fasilitas)
+    preferensi = (jenis + " " + " ".join(fasilitas)).strip()
 
-    content_scores = hitung_content_score(preferensi)
+    # Kalau user cuma isi budget/kapasitas tanpa jenis & fasilitas,
+    # tidak ada teks yang bisa dibandingkan lewat TF-IDF -> content_score akan 0 untuk semua kost.
+    # Tandai kondisi ini supaya kita bisa fallback ke rating & jarak, bukan urutan data mentah.
+    preferensi_kosong = (preferensi == "")
+
+    content_scores = hitung_content_score(preferensi) if not preferensi_kosong else [0] * len(kost_data)
     collab_scores = hitung_collaborative_score()
 
     hasil = []
@@ -337,12 +369,20 @@ def cari():
 
         content_score = content_scores[i] * 100
         collaborative_score = (collab_scores[kost['id']] / 5) * 100
-        skor = (content_score * 0.7 + collaborative_score * 0.3)
+        n_rating = jumlah_rating(kost['id'])
 
-        # ✅ FIX 2: Alasan spesifik berdasarkan data kost & input user
+        if preferensi_kosong:
+            # Fallback: tidak ada preferensi teks -> urutkan dari rating asli
+            # (kalau belum ada rating sama sekali, semua kost dianggap setara -> 50%)
+            skor = collaborative_score if n_rating > 0 else 50
+        elif n_rating == 0:
+            # Belum ada rating sama sekali -> 100% pakai content-based
+            skor = content_score
+        else:
+            skor = (content_score * 0.7) + (collaborative_score * 0.3)
+
         alasan = []
 
-        # Fasilitas yang diminta vs yang dimiliki kost
         if fasilitas:
             fasilitas_kost = kost['fasilitas'].lower()
             fasilitas_cocok = [f for f in fasilitas if f.lower() in fasilitas_kost]
@@ -353,14 +393,12 @@ def cari():
             if fasilitas_tidak:
                 alasan.append(f"⚠️ Tidak memiliki: {', '.join(fasilitas_tidak)}")
 
-        # Jenis kost
         if jenis:
             if jenis.lower() in kost['jenis'].lower():
                 alasan.append(f"✅ Jenis kost sesuai: {kost['jenis']}")
             else:
                 alasan.append(f"⚠️ Jenis kost berbeda: kost ini adalah {kost['jenis']}")
 
-        # Budget
         if budget:
             try:
                 budget_int = int(budget)
@@ -372,33 +410,34 @@ def cari():
             except:
                 pass
 
-        # Kapasitas
         if kapasitas:
             if kost['kapasitas'] == kapasitas:
                 alasan.append(f"✅ Kapasitas kamar {kost['kapasitas']} sesuai kebutuhan")
             else:
                 alasan.append(f"⚠️ Kapasitas kamar berbeda: {kost['kapasitas']}")
 
-        # Jarak
         alasan.append(f"📍 Jarak dari kampus: {kost['jarak']} km")
 
-        # Rating kolaboratif
-        if collaborative_score > 70:
-            alasan.append(f"⭐ Rating tinggi dari pengguna lain ({round(collaborative_score, 1)}%)")
-        elif collaborative_score > 0:
-            alasan.append(f"⭐ Rating pengguna lain: {round(collaborative_score, 1)}%")
+        # Rating kolaboratif -- sekarang berbasis data ASLI, bukan karangan
+        if n_rating == 0:
+            alasan.append("📝 Belum ada rating dari penghuni")
+        elif collaborative_score > 70:
+            alasan.append(f"⭐ Rating tinggi dari {n_rating} penghuni ({round(collaborative_score, 1)}%)")
         else:
-            alasan.append("📝 Belum ada rating dari pengguna lain")
+            alasan.append(f"⭐ Rating dari {n_rating} penghuni: {round(collaborative_score, 1)}%")
 
-        # Skor akhir
-        alasan.append(f"🎯 Tingkat kecocokan: {round(skor, 2)}% (Hybrid Recommendation System)")
+        if preferensi_kosong:
+            label_metode = "Diurutkan berdasarkan rating & jarak"
+        elif n_rating > 0:
+            label_metode = "Hybrid Recommendation System"
+        else:
+            label_metode = "Content-Based Filtering (TF-IDF)"
+        alasan.append(f"🎯 Tingkat kecocokan: {round(skor, 2)}% ({label_metode})")
 
-        # Filter jenis
         if jenis:
             if jenis.lower() not in kost['jenis'].lower():
                 continue
 
-        # Filter budget
         if budget:
             try:
                 if kost['harga'] > int(budget):
@@ -406,7 +445,6 @@ def cari():
             except:
                 pass
 
-        # Filter kapasitas
         if kapasitas:
             if kost['kapasitas'] != kapasitas:
                 continue
@@ -414,6 +452,8 @@ def cari():
         kost_copy = kost.copy()
         kost_copy['skor'] = round(skor, 2)
         kost_copy['alasan'] = alasan
+        kost_copy['jumlah_rating'] = n_rating
+        kost_copy['rating_rata2'] = round(collab_scores[kost['id']], 2)
         hasil.append(kost_copy)
 
     hasil.sort(key=lambda x: x['skor'], reverse=True)
@@ -423,7 +463,8 @@ def cari():
 
     return render_template('index.html', hasil=hasil)
 
-@app.route('/detail/<int:kost_id>') 
+
+@app.route('/detail/<int:kost_id>')
 def detail(kost_id):
 
     kost = next(
@@ -434,21 +475,56 @@ def detail(kost_id):
     if kost is None:
         abort(404)
 
+    collab_scores = hitung_collaborative_score()
+    kost = kost.copy()
+    kost['rating_rata2'] = round(collab_scores[kost_id], 2)
+    kost['jumlah_rating'] = jumlah_rating(kost_id)
+
     return render_template(
         'detail.html',
         kost=kost
     )
 
+
+@app.route('/rate/<int:kost_id>', methods=['POST'])
+def rate(kost_id):
+    """
+    Endpoint baru untuk menyimpan rating asli dari penghuni.
+    Panggil dari form kecil di detail.html, misalnya:
+
+    <form method="POST" action="{{ url_for('rate', kost_id=kost.id) }}">
+        <select name="rating">
+            <option value="5">5 - Sangat Puas</option>
+            <option value="4">4 - Puas</option>
+            <option value="3">3 - Cukup</option>
+            <option value="2">2 - Kurang</option>
+            <option value="1">1 - Tidak Puas</option>
+        </select>
+        <button type="submit">Kirim Rating</button>
+    </form>
+    """
+    try:
+        rating = int(request.form['rating'])
+        if 1 <= rating <= 5:
+            simpan_rating(kost_id, rating)
+    except (KeyError, ValueError):
+        pass
+
+    return redirect(url_for('detail', kost_id=kost_id))
+
+
 @app.route('/semua-kost')
 def semua_kost():
 
     semua = []
+    collab_scores = hitung_collaborative_score()
 
     for i, kost in enumerate(kost_data):
 
         kost_copy = kost.copy()
-
         kost_copy['ranking'] = i + 1
+        kost_copy['rating_rata2'] = round(collab_scores[kost['id']], 2)
+        kost_copy['jumlah_rating'] = jumlah_rating(kost['id'])
 
         semua.append(kost_copy)
 
@@ -456,10 +532,11 @@ def semua_kost():
         'semua_kost.html',
         kost_list=semua
     )
+
+
 @app.route('/tentang')
 def tentang():
     return render_template('tentang.html')
-
 
 
 # ==========================================
@@ -468,5 +545,3 @@ def tentang():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
-

@@ -190,6 +190,17 @@ transform:scale(1.08);
     font-weight:bold;
 }
 
+.rating-badge{
+    display:inline-block;
+    background:#fff5fb;
+    border:1px solid #ffd4e8;
+    color:#7a1f52;
+    padding:8px 15px;
+    border-radius:999px;
+    font-weight:600;
+    margin-left:8px;
+}
+
 .detail-btn{
     text-decoration:none;
     background:linear-gradient(45deg,#ec4899,#be185d);
@@ -565,9 +576,15 @@ color:#5b2167;
 
 <h2>{{ kost['nama'] }}</h2>
 
-<p class="score" style="margin:12px 0;">
-    Kecocokan: {{ kost['skor'] }}%
+<p style="margin:12px 0;">
+    <span class="score">Kecocokan: {{ kost['skor'] }}%</span>
+    {% if kost['jumlah_rating'] and kost['jumlah_rating'] > 0 %}
+    <span class="rating-badge">⭐ {{ kost['rating_rata2'] }} ({{ kost['jumlah_rating'] }})</span>
+    {% else %}
+    <span class="rating-badge">📝 Belum ada rating</span>
+    {% endif %}
 </p>
+
 <button class="toggle-alasan" onclick="toggleAlasan(this)">
     Lihat Alasan Rekomendasi
 </button>
