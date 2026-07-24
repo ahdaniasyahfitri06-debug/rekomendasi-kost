@@ -65,9 +65,75 @@ body{
     0 25px 60px rgba(0,0,0,.35);
 
     animation:fadeUp 1s ease;
-    <div style="font-size:80px;margin-bottom:20px;">
-🏠
-</div>
+}
+
+.logo-badge{
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:26px;
+
+    background:linear-gradient(
+        135deg,
+        #f9a8d4,
+        #ec4899,
+        #be185d
+    );
+
+    box-shadow:
+    0 15px 35px rgba(236,72,153,.45);
+
+    animation:popIn .8s ease;
+}
+
+.logo-badge svg{
+    width:46px;
+    height:46px;
+}
+
+@keyframes popIn{
+
+    from{
+        opacity:0;
+        transform:scale(.6) translateY(-10px);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+
+}
+
+.brand{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:18px;
+
+    background:linear-gradient(
+        45deg,
+        #be185d,
+        #7c3aed
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 h1{
@@ -229,28 +295,6 @@ body::after{
     }
 
 }
-.container{
-
-    animation:fadeUp .9s ease;
-}
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-        transform:translateY(40px);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:translateY(0);
-
-    }
-
-}
     </style>
 
 </head>
@@ -258,6 +302,16 @@ body::after{
 <body>
 
     <div class="container">
+
+        <div class="logo-badge">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 10.5L12 3l9 7.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.5 21v-6a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <p class="brand">KostMatch</p>
 
         <h1>
             Selamat Datang Di Aplikasi
